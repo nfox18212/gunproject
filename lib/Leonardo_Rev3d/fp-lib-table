@@ -1,0 +1,4 @@
+(fp_lib_table
+  (version 7)
+  (lib (name "Leonardo_Rev3d")(type "KiCad")(uri "$(KIPRJMOD)/Leonardo_Rev3d.pretty")(options "")(descr ""))
+)

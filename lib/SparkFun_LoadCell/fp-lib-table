@@ -1,0 +1,4 @@
+(fp_lib_table
+  (version 7)
+  (lib (name "SparkFun_HX711_Load_Cell")(type "KiCad")(uri "$(KIPRJMOD)/SparkFun_HX711_Load_Cell.pretty")(options "")(descr ""))
+)

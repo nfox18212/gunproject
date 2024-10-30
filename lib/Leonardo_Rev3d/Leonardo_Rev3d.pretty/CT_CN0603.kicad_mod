@@ -1,0 +1,149 @@
+(footprint "CT_CN0603"
+	(version 20240108)
+	(generator "pcbnew")
+	(generator_version "8.0")
+	(layer "F.Cu")
+	(descr "EPCOS SMD Varistors, MLV; Standard Series\n\nSource: www.farnell.com/datasheets/49238.pdf")
+	(property "Reference" "REF**"
+		(at -1.5 -1 0)
+		(unlocked yes)
+		(layer "F.SilkS")
+		(uuid "d0a6958d-62a1-48c3-a81d-f85e978a504a")
+		(effects
+			(font
+				(size 0.93472 0.93472)
+				(thickness 0.08128)
+			)
+			(justify left bottom)
+		)
+	)
+	(property "Value" "CT_CN0603"
+		(at -1.5 2 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(uuid "cf9cd34e-4e1c-4991-af18-a2e64ef94211")
+		(effects
+			(font
+				(size 0.93472 0.93472)
+				(thickness 0.08128)
+			)
+			(justify left bottom)
+		)
+	)
+	(property "Footprint" ""
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "a7f62845-cb2a-46e5-9754-1f32c3a3dbc4")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Datasheet" ""
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "1241f9fe-14ea-4e3b-818f-37994cf16809")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Description" ""
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "ac937baf-e3c2-4b8b-a31e-be2544e9913a")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(fp_line
+		(start -0.75 -0.35)
+		(end 0.75 -0.35)
+		(stroke
+			(width 0.1016)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "ef49ab04-f65b-4411-aea9-d61e3c3e1065")
+	)
+	(fp_line
+		(start -0.75 0.35)
+		(end -0.75 -0.35)
+		(stroke
+			(width 0.1016)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "82fc021a-3d4f-43f1-98db-1c7497bdf430")
+	)
+	(fp_line
+		(start 0.75 -0.35)
+		(end 0.75 0.35)
+		(stroke
+			(width 0.1016)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "e358ea88-3b44-415f-a9ed-8bf3fd87fd75")
+	)
+	(fp_line
+		(start 0.75 0.35)
+		(end -0.75 0.35)
+		(stroke
+			(width 0.1016)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "e5a31d6a-0ea5-4a96-b4d0-1729dbd5cf87")
+	)
+	(fp_poly
+		(pts
+			(xy -0.75 0.35) (xy -0.4 0.35) (xy -0.4 -0.35) (xy -0.75 -0.35)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(fill solid)
+		(layer "F.Fab")
+		(uuid "14152ab9-de40-4126-b5d6-14363cbb8d4a")
+	)
+	(fp_poly
+		(pts
+			(xy 0.75 -0.35) (xy 0.4 -0.35) (xy 0.4 0.35) (xy 0.75 0.35)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(fill solid)
+		(layer "F.Fab")
+		(uuid "e3b6018f-057b-4fb1-965e-0cd378341459")
+	)
+	(pad "1" smd rect
+		(at -1 0)
+		(size 1 1)
+		(layers "F.Cu" "F.Paste" "F.Mask")
+		(solder_mask_margin 0.0508)
+		(thermal_bridge_angle 0)
+		(uuid "191a4f06-4dd0-491b-b900-29a3472d19fe")
+	)
+	(pad "2" smd rect
+		(at 1 0)
+		(size 1 1)
+		(layers "F.Cu" "F.Paste" "F.Mask")
+		(solder_mask_margin 0.0508)
+		(thermal_bridge_angle 0)
+		(uuid "7ae46755-6334-4318-aa9d-6de2a69facb7")
+	)
+)
