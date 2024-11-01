@@ -1,0 +1,5 @@
+(sym_lib_table
+  (version 7)
+  (lib (name "GUNPROJECT_LIB")(type "KiCad")(uri "${KIPRJMOD}/../../lib/GunProject_lib.kicad_sym")(options "")(descr ""))
+  (lib (name "SparkFun_HX711_Load_Cell-eagle-import")(type "KiCad")(uri "/home/sparkle/Documents/gunproject/lib/SparkFun_HX711_Load_Cell-eagle-import.kicad_sym")(options "")(descr ""))
+)

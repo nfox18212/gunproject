@@ -236,12 +236,10 @@
   },
   "libraries": {
     "pinned_footprint_libs": [],
-    "pinned_symbol_libs": [
-      "GUNPROJECT_LIB"
-    ]
+    "pinned_symbol_libs": []
   },
   "meta": {
-    "filename": "pad-button.kicad_pro",
+    "filename": "SparkFun_StrainGauge.kicad_pro",
     "version": 1
   },
   "net_settings": {

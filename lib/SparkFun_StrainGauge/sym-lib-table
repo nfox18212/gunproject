@@ -1,0 +1,4 @@
+(sym_lib_table
+  (version 7)
+  (lib (name "StrainGauge")(type "KiCad")(uri "/home/sparkle/Documents/gunproject/lib/StrainGauge.kicad_sym")(options "")(descr ""))
+)
