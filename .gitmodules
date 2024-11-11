@@ -1,0 +1,3 @@
+[submodule "bd845-pwb-board"]
+	path = bd845-pwb-board
+	url = https://github.com/bluedot-arcade/bd845-pwb-board.git
