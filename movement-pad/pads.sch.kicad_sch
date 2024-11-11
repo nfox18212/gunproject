@@ -367,6 +367,107 @@
 				)
 			)
 		)
+		(symbol "FSR_1"
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "FSR1"
+				(at 12.7 7.6201 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Value" "~"
+				(at 12.7 5.715 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Footprint" ""
+				(at -1.016 1.27 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" ""
+				(at -1.016 1.27 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" ""
+				(at -1.016 1.27 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "FSR_1_0_1"
+				(rectangle
+					(start 0 11.43)
+					(end 11.43 0)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "FSR_1_1_1"
+				(pin input line
+					(at 8.89 13.97 270)
+					(length 2.54)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin output line
+					(at 2.54 13.97 270)
+					(length 2.54)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
 		(symbol "GunProject_lib:FSR"
 			(exclude_from_sim no)
 			(in_bom yes)
@@ -429,7 +530,7 @@
 			)
 			(symbol "FSR_1_1"
 				(pin input line
-					(at 8.89 11.43 90)
+					(at 8.89 13.97 270)
 					(length 2.54)
 					(name ""
 						(effects
@@ -447,7 +548,7 @@
 					)
 				)
 				(pin output line
-					(at 2.54 11.43 90)
+					(at 2.54 13.97 270)
 					(length 2.54)
 					(name ""
 						(effects
@@ -585,16 +686,16 @@
 	)
 	(symbol
 		(lib_id "GunProject_lib:FSR")
-		(at 35.56 153.67 0)
+		(at 50.8 162.56 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
 		(fields_autoplaced yes)
-		(uuid "0119b58b-e66b-46fc-b040-b5c505e58c99")
-		(property "Reference" "FSR6"
-			(at 48.26 146.0499 0)
+		(uuid "2546eff8-cbb8-49a6-a27c-d07d0e7010e9")
+		(property "Reference" "FSR8"
+			(at 63.5 156.2099 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -603,7 +704,7 @@
 			)
 		)
 		(property "Value" "~"
-			(at 48.26 147.955 0)
+			(at 63.5 158.115 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -612,7 +713,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 34.544 152.4 0)
+			(at 49.784 161.29 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -621,7 +722,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 34.544 152.4 0)
+			(at 49.784 161.29 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -630,7 +731,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 34.544 152.4 0)
+			(at 49.784 161.29 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -639,15 +740,15 @@
 			)
 		)
 		(pin "1"
-			(uuid "b9767c5a-db87-427b-855f-3acb76526443")
+			(uuid "bc2ed150-f7b0-4361-a699-1a2a538827af")
 		)
 		(pin "2"
-			(uuid "eafdde16-b839-49ec-a34d-11217370e3af")
+			(uuid "c6612f05-76bc-42eb-940a-3e1876781376")
 		)
 		(instances
 			(project ""
 				(path "/bc35764e-e227-4d6f-a922-8bc8ca894189/92a3ecd5-35fb-4dec-b23c-71e728168ce7"
-					(reference "FSR6")
+					(reference "FSR8")
 					(unit 1)
 				)
 			)
@@ -690,7 +791,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "http://www.ti.com/lit/gpn/sn74LS147"
+		(property "Datasheet" "https://www.alldatasheet.com/datasheet-pdf/pdf/27388/TI/74LS147.html"
 			(at 72.39 80.01 0)
 			(effects
 				(font
@@ -764,226 +865,16 @@
 	)
 	(symbol
 		(lib_id "GunProject_lib:FSR")
-		(at 120.65 152.4 0)
+		(at 24.13 148.59 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
 		(fields_autoplaced yes)
-		(uuid "64ff03d2-838a-4923-8e36-fd15db85f7b7")
-		(property "Reference" "FSR10"
-			(at 133.35 144.7799 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "~"
-			(at 133.35 146.685 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" ""
-			(at 119.634 151.13 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 119.634 151.13 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 119.634 151.13 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "b9767c5a-db87-427b-855f-3acb76526443")
-		)
-		(pin "2"
-			(uuid "eafdde16-b839-49ec-a34d-11217370e3af")
-		)
-		(instances
-			(project ""
-				(path "/bc35764e-e227-4d6f-a922-8bc8ca894189/92a3ecd5-35fb-4dec-b23c-71e728168ce7"
-					(reference "FSR10")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "GunProject_lib:FSR")
-		(at 127 132.08 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "6700c565-d3e8-4fac-b0a6-b9881640460f")
-		(property "Reference" "FSR5"
-			(at 139.7 124.4599 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "~"
-			(at 139.7 126.365 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" ""
-			(at 125.984 130.81 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 125.984 130.81 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 125.984 130.81 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "b9767c5a-db87-427b-855f-3acb76526443")
-		)
-		(pin "2"
-			(uuid "eafdde16-b839-49ec-a34d-11217370e3af")
-		)
-		(instances
-			(project ""
-				(path "/bc35764e-e227-4d6f-a922-8bc8ca894189/92a3ecd5-35fb-4dec-b23c-71e728168ce7"
-					(reference "FSR5")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "GunProject_lib:FSR")
-		(at 57.15 153.67 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "67cfecf3-74b9-4f54-aedd-3c52a880989a")
-		(property "Reference" "FSR7"
-			(at 69.85 146.0499 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "~"
-			(at 69.85 147.955 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" ""
-			(at 56.134 152.4 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 56.134 152.4 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 56.134 152.4 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "b9767c5a-db87-427b-855f-3acb76526443")
-		)
-		(pin "2"
-			(uuid "eafdde16-b839-49ec-a34d-11217370e3af")
-		)
-		(instances
-			(project ""
-				(path "/bc35764e-e227-4d6f-a922-8bc8ca894189/92a3ecd5-35fb-4dec-b23c-71e728168ce7"
-					(reference "FSR7")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "GunProject_lib:FSR")
-		(at 77.47 134.62 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "aa5712db-64ae-410c-8350-73e21070bf35")
+		(uuid "3d8cf822-696a-474c-bbb8-c0a2532b48e6")
 		(property "Reference" "FSR3"
-			(at 90.17 126.9999 0)
+			(at 36.83 142.2399 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -992,7 +883,7 @@
 			)
 		)
 		(property "Value" "~"
-			(at 90.17 128.905 0)
+			(at 36.83 144.145 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1001,7 +892,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 76.454 133.35 0)
+			(at 23.114 147.32 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1010,7 +901,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 76.454 133.35 0)
+			(at 23.114 147.32 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1019,7 +910,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 76.454 133.35 0)
+			(at 23.114 147.32 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1028,10 +919,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "b9767c5a-db87-427b-855f-3acb76526443")
+			(uuid "bc2ed150-f7b0-4361-a699-1a2a538827af")
 		)
 		(pin "2"
-			(uuid "eafdde16-b839-49ec-a34d-11217370e3af")
+			(uuid "c6612f05-76bc-42eb-940a-3e1876781376")
 		)
 		(instances
 			(project ""
@@ -1044,86 +935,16 @@
 	)
 	(symbol
 		(lib_id "GunProject_lib:FSR")
-		(at 99.06 134.62 0)
+		(at 25.4 130.81 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
 		(fields_autoplaced yes)
-		(uuid "aff268c2-cb8b-4aaa-a45a-555fca4a0f24")
-		(property "Reference" "FSR4"
-			(at 111.76 126.9999 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "~"
-			(at 111.76 128.905 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" ""
-			(at 98.044 133.35 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 98.044 133.35 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 98.044 133.35 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "b9767c5a-db87-427b-855f-3acb76526443")
-		)
-		(pin "2"
-			(uuid "eafdde16-b839-49ec-a34d-11217370e3af")
-		)
-		(instances
-			(project ""
-				(path "/bc35764e-e227-4d6f-a922-8bc8ca894189/92a3ecd5-35fb-4dec-b23c-71e728168ce7"
-					(reference "FSR4")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "GunProject_lib:FSR")
-		(at 57.15 135.89 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "c41ec348-a2a6-4cd4-a5eb-f9cbad9fae71")
+		(uuid "59d3a7dd-af02-4b1a-a6cd-39a693161530")
 		(property "Reference" "FSR2"
-			(at 69.85 128.2699 0)
+			(at 38.1 124.4599 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1132,7 +953,7 @@
 			)
 		)
 		(property "Value" "~"
-			(at 69.85 130.175 0)
+			(at 38.1 126.365 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1141,7 +962,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 56.134 134.62 0)
+			(at 24.384 129.54 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1150,7 +971,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 56.134 134.62 0)
+			(at 24.384 129.54 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1159,7 +980,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 56.134 134.62 0)
+			(at 24.384 129.54 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1168,10 +989,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "b9767c5a-db87-427b-855f-3acb76526443")
+			(uuid "8375cf60-94f3-46d3-b875-c115a39dd48d")
 		)
 		(pin "2"
-			(uuid "eafdde16-b839-49ec-a34d-11217370e3af")
+			(uuid "bacdda85-a3d8-4a7f-a45f-06d6513f09c7")
 		)
 		(instances
 			(project ""
@@ -1184,16 +1005,16 @@
 	)
 	(symbol
 		(lib_id "GunProject_lib:FSR")
-		(at 99.06 154.94 0)
+		(at 24.13 186.69 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
 		(fields_autoplaced yes)
-		(uuid "dc2a5942-f5b0-47be-a598-4e0e810cf621")
-		(property "Reference" "FSR9"
-			(at 111.76 147.3199 0)
+		(uuid "6912c79e-fc69-4570-a4ce-1a7b7386611a")
+		(property "Reference" "FSR5"
+			(at 36.83 180.3399 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1202,7 +1023,7 @@
 			)
 		)
 		(property "Value" "~"
-			(at 111.76 149.225 0)
+			(at 36.83 182.245 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1211,7 +1032,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 98.044 153.67 0)
+			(at 23.114 185.42 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1220,7 +1041,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 98.044 153.67 0)
+			(at 23.114 185.42 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1229,7 +1050,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 98.044 153.67 0)
+			(at 23.114 185.42 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1238,10 +1059,150 @@
 			)
 		)
 		(pin "1"
-			(uuid "b9767c5a-db87-427b-855f-3acb76526443")
+			(uuid "bc2ed150-f7b0-4361-a699-1a2a538827af")
 		)
 		(pin "2"
-			(uuid "eafdde16-b839-49ec-a34d-11217370e3af")
+			(uuid "c6612f05-76bc-42eb-940a-3e1876781376")
+		)
+		(instances
+			(project ""
+				(path "/bc35764e-e227-4d6f-a922-8bc8ca894189/92a3ecd5-35fb-4dec-b23c-71e728168ce7"
+					(reference "FSR5")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "GunProject_lib:FSR")
+		(at 24.13 167.64 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "70812be3-0c2b-4f76-98e6-0db11c5f7c7f")
+		(property "Reference" "FSR4"
+			(at 36.83 161.2899 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "~"
+			(at 36.83 163.195 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 23.114 166.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 23.114 166.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 23.114 166.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "bc2ed150-f7b0-4361-a699-1a2a538827af")
+		)
+		(pin "2"
+			(uuid "c6612f05-76bc-42eb-940a-3e1876781376")
+		)
+		(instances
+			(project ""
+				(path "/bc35764e-e227-4d6f-a922-8bc8ca894189/92a3ecd5-35fb-4dec-b23c-71e728168ce7"
+					(reference "FSR4")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "GunProject_lib:FSR")
+		(at 55.88 181.61 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "a1902bab-b9e2-482b-9ad5-672c815014ed")
+		(property "Reference" "FSR9"
+			(at 68.58 175.2599 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "~"
+			(at 68.58 177.165 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 54.864 180.34 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 54.864 180.34 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 54.864 180.34 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "bc2ed150-f7b0-4361-a699-1a2a538827af")
+		)
+		(pin "2"
+			(uuid "c6612f05-76bc-42eb-940a-3e1876781376")
 		)
 		(instances
 			(project ""
@@ -1254,16 +1215,16 @@
 	)
 	(symbol
 		(lib_id "GunProject_lib:FSR")
-		(at 21.844 136.652 0)
+		(at 48.26 129.54 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
 		(fields_autoplaced yes)
-		(uuid "ef42dd53-c0f6-40b7-9f46-02a082ea16bc")
-		(property "Reference" "FSR1"
-			(at 34.544 129.0319 0)
+		(uuid "a5a8f9fa-9053-4ded-850c-9306f515f6dd")
+		(property "Reference" "FSR6"
+			(at 60.96 123.1899 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1272,7 +1233,7 @@
 			)
 		)
 		(property "Value" "~"
-			(at 34.544 130.937 0)
+			(at 60.96 125.095 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1281,7 +1242,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 20.828 135.382 0)
+			(at 47.244 128.27 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1290,7 +1251,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 20.828 135.382 0)
+			(at 47.244 128.27 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1299,7 +1260,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 20.828 135.382 0)
+			(at 47.244 128.27 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1308,10 +1269,151 @@
 			)
 		)
 		(pin "1"
-			(uuid "b9767c5a-db87-427b-855f-3acb76526443")
+			(uuid "bc2ed150-f7b0-4361-a699-1a2a538827af")
 		)
 		(pin "2"
-			(uuid "eafdde16-b839-49ec-a34d-11217370e3af")
+			(uuid "c6612f05-76bc-42eb-940a-3e1876781376")
+		)
+		(instances
+			(project ""
+				(path "/bc35764e-e227-4d6f-a922-8bc8ca894189/92a3ecd5-35fb-4dec-b23c-71e728168ce7"
+					(reference "FSR6")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "GunProject_lib:FSR")
+		(at 77.47 181.61 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "e256bc63-abd9-4ae6-99c4-4520dce8ba02")
+		(property "Reference" "FSR10"
+			(at 90.17 175.2599 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "~"
+			(at 90.17 177.165 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 76.454 180.34 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 76.454 180.34 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 76.454 180.34 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "bc2ed150-f7b0-4361-a699-1a2a538827af")
+		)
+		(pin "2"
+			(uuid "c6612f05-76bc-42eb-940a-3e1876781376")
+		)
+		(instances
+			(project ""
+				(path "/bc35764e-e227-4d6f-a922-8bc8ca894189/92a3ecd5-35fb-4dec-b23c-71e728168ce7"
+					(reference "FSR10")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_name "FSR_1")
+		(lib_id "GunProject_lib:FSR")
+		(at 22.86 114.3 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "ef42dd53-c0f6-40b7-9f46-02a082ea16bc")
+		(property "Reference" "FSR1"
+			(at 35.56 106.6799 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "~"
+			(at 35.56 108.585 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 21.844 113.03 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 21.844 113.03 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 21.844 113.03 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "b9767c5a-db87-427b-855f-3acb7652644b")
+		)
+		(pin "2"
+			(uuid "eafdde16-b839-49ec-a34d-11217370e3b7")
 		)
 		(instances
 			(project ""
@@ -1390,16 +1492,16 @@
 	)
 	(symbol
 		(lib_id "GunProject_lib:FSR")
-		(at 83.82 154.94 0)
+		(at 49.53 144.78 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
 		(fields_autoplaced yes)
-		(uuid "feec0a26-8c47-4b9b-bc1c-d7724430c374")
-		(property "Reference" "FSR8"
-			(at 96.52 147.3199 0)
+		(uuid "fcb0026b-620f-47fe-af6e-3a65b6c3e91f")
+		(property "Reference" "FSR7"
+			(at 62.23 138.4299 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1408,7 +1510,7 @@
 			)
 		)
 		(property "Value" "~"
-			(at 96.52 149.225 0)
+			(at 62.23 140.335 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1417,7 +1519,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 82.804 153.67 0)
+			(at 48.514 143.51 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1426,7 +1528,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 82.804 153.67 0)
+			(at 48.514 143.51 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1435,7 +1537,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 82.804 153.67 0)
+			(at 48.514 143.51 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1444,15 +1546,15 @@
 			)
 		)
 		(pin "1"
-			(uuid "b9767c5a-db87-427b-855f-3acb76526443")
+			(uuid "bc2ed150-f7b0-4361-a699-1a2a538827af")
 		)
 		(pin "2"
-			(uuid "eafdde16-b839-49ec-a34d-11217370e3af")
+			(uuid "c6612f05-76bc-42eb-940a-3e1876781376")
 		)
 		(instances
 			(project ""
 				(path "/bc35764e-e227-4d6f-a922-8bc8ca894189/92a3ecd5-35fb-4dec-b23c-71e728168ce7"
-					(reference "FSR8")
+					(reference "FSR7")
 					(unit 1)
 				)
 			)

@@ -1,0 +1,4 @@
+(sym_lib_table
+  (version 7)
+  (lib (name "GunProject_lib")(type "KiCad")(uri "/home/nfox/Documents/School/Capstone/gunproject/lib/GunProject_lib.kicad_sym")(options "")(descr ""))
+)
