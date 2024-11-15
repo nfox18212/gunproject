@@ -4560,7 +4560,7 @@
 		)
 		(uuid "ffb560a3-27d9-496b-bedf-f2ceca97401f")
 	)
-	(text "Each FSR Will Have Its Own LED to Signify When It Is Lit"
+	(text "Each FSR Will Have Its Own LED to Signify When It Is Pressed"
 		(exclude_from_sim no)
 		(at 186.944 44.704 0)
 		(effects
