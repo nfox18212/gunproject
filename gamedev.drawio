@@ -1,6 +1,6 @@
 <mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36" version="24.8.6">
   <diagram name="Page-1" id="ugOBHN1UPeRfj3JGBwjC">
-    <mxGraphModel dx="1468" dy="931" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="1735" dy="1100" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -113,10 +113,106 @@
           <mxGeometry x="100" y="450" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="wF0RQOkx4R9PMtmohDRf-3" value="Start" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="230" y="640" width="120" height="80" as="geometry" />
+          <mxGeometry x="100" y="650" width="120" height="80" as="geometry" />
         </mxCell>
-        <mxCell id="wF0RQOkx4R9PMtmohDRf-4" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="230" y="750" width="120" height="60" as="geometry" />
+        <mxCell id="wF0RQOkx4R9PMtmohDRf-4" value="Initialize&amp;nbsp;&lt;div&gt;accelerometer&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="100" y="760" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="wF0RQOkx4R9PMtmohDRf-6" value="Gun Control" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="115" y="610" width="90" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="wF0RQOkx4R9PMtmohDRf-7" value="Set up&amp;nbsp;&lt;span style=&quot;background-color: initial;&quot;&gt;button pins&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="100" y="850" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="wF0RQOkx4R9PMtmohDRf-19" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="wF0RQOkx4R9PMtmohDRf-14" target="wF0RQOkx4R9PMtmohDRf-15">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="wF0RQOkx4R9PMtmohDRf-14" value="Main program loop" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="100" y="940" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="wF0RQOkx4R9PMtmohDRf-20" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="wF0RQOkx4R9PMtmohDRf-15" target="wF0RQOkx4R9PMtmohDRf-16">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="wF0RQOkx4R9PMtmohDRf-15" value="Read&amp;nbsp;&lt;span style=&quot;background-color: initial;&quot;&gt;data from accelerometer&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="100" y="1030" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="wF0RQOkx4R9PMtmohDRf-21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="wF0RQOkx4R9PMtmohDRf-16" target="wF0RQOkx4R9PMtmohDRf-17">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="wF0RQOkx4R9PMtmohDRf-16" value="Calculate mouse movement" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="100" y="1120" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="wF0RQOkx4R9PMtmohDRf-18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="wF0RQOkx4R9PMtmohDRf-17" target="wF0RQOkx4R9PMtmohDRf-14">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="60" y="1240" />
+              <mxPoint x="60" y="970" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="wF0RQOkx4R9PMtmohDRf-17" value="Check button" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="100" y="1210" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="wF0RQOkx4R9PMtmohDRf-22" value="If trigger&amp;nbsp;&lt;div&gt;button is (held)&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;/ pressed&lt;/span&gt;&lt;/div&gt;" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.decision;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="110" y="1430" width="100" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="wF0RQOkx4R9PMtmohDRf-35" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="wF0RQOkx4R9PMtmohDRf-23" target="wF0RQOkx4R9PMtmohDRf-34">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="wF0RQOkx4R9PMtmohDRf-23" value="Fire" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="470" y="1460" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="wF0RQOkx4R9PMtmohDRf-29" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="wF0RQOkx4R9PMtmohDRf-25" target="wF0RQOkx4R9PMtmohDRf-26">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="wF0RQOkx4R9PMtmohDRf-25" value="If menu&amp;nbsp;&lt;div&gt;button&amp;nbsp;&lt;span style=&quot;background-color: initial;&quot;&gt;clicked&lt;/span&gt;&lt;/div&gt;" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.decision;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="110" y="1300" width="100" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="wF0RQOkx4R9PMtmohDRf-26" value="Open menu&amp;nbsp;&lt;div&gt;space&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="240" y="1320" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="wF0RQOkx4R9PMtmohDRf-31" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="wF0RQOkx4R9PMtmohDRf-27" target="wF0RQOkx4R9PMtmohDRf-28">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="wF0RQOkx4R9PMtmohDRf-27" value="If menu&amp;nbsp;&lt;div&gt;button&amp;nbsp;&lt;span style=&quot;background-color: initial;&quot;&gt;clicked&lt;/span&gt;&lt;/div&gt;&lt;div&gt;AGAIN&lt;/div&gt;" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.decision;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="385" y="1300" width="100" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="wF0RQOkx4R9PMtmohDRf-33" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="wF0RQOkx4R9PMtmohDRf-28" target="wF0RQOkx4R9PMtmohDRf-17">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="570" y="1240" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="wF0RQOkx4R9PMtmohDRf-28" value="Close menu&lt;div&gt;space&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="510" y="1320" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="wF0RQOkx4R9PMtmohDRf-30" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="wF0RQOkx4R9PMtmohDRf-26" target="wF0RQOkx4R9PMtmohDRf-27">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="wF0RQOkx4R9PMtmohDRf-32" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="wF0RQOkx4R9PMtmohDRf-17" target="wF0RQOkx4R9PMtmohDRf-25">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="wF0RQOkx4R9PMtmohDRf-38" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="wF0RQOkx4R9PMtmohDRf-34" target="wF0RQOkx4R9PMtmohDRf-36">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="wF0RQOkx4R9PMtmohDRf-34" value="Read&amp;nbsp;&lt;span style=&quot;background-color: initial;&quot;&gt;data from accelerometer&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="620" y="1460" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="wF0RQOkx4R9PMtmohDRf-36" value="Calculate mouse movement" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="770" y="1460" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="wF0RQOkx4R9PMtmohDRf-43" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="wF0RQOkx4R9PMtmohDRf-39" target="wF0RQOkx4R9PMtmohDRf-40">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="wF0RQOkx4R9PMtmohDRf-39" value="If&amp;nbsp;&lt;div&gt;no&amp;nbsp;&lt;/div&gt;&lt;div&gt;ammo&lt;/div&gt;" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.decision;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="575" y="1540" width="100" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="wF0RQOkx4R9PMtmohDRf-40" value="Reload&amp;nbsp;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="565" y="1680" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="wF0RQOkx4R9PMtmohDRf-44" value="Check for ammo" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="250" y="1450" width="120" height="60" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
