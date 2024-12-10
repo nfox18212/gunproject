@@ -1,0 +1,4 @@
+*.ipt filter=lfs diff=lfs merge=lfs -text
+*.idw filter=lfs diff=lfs merge=lfs -text
+*.iam filter=lfs diff=lfs merge=lfs -text
+*.ipn filter=lfs diff=lfs merge=lfs -text
