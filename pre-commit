@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+#set -x
+
+toplevel=`git rev-parse --show-toplevel`
+#echo $toplevel
+# change the find size parameter to adjust what to look for
+out=`find $toplevel -size +50M -exec ls -sh {} \;`
+echo "$out" | od -cx
+count=`echo "$out" | wc -l`
+
+
+if [ $((count > 5)) ]; then
+	echo "Found $count file(s) that are too big!  Displaying below: "
+	echo " " # really shitty newline
+
+	# the contents of the find is in the variable $out, echo with quotes to properly display it
+	echo "$out"
+	
+	exit 1
+else
+	echo "No files are too big, continuing commit"
+	echo " "
+	exit 0
+fi
