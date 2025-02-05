@@ -1,15 +1,9 @@
 #include <Arduino.h>
+#include <Keyboard.h>
+
+
 
 // put function declarations here:
-// struct {
-
-//   bool forward = false;
-//   bool sprint = false;
-//   bool backwards = false;
-//   bool left = false;
-//   bool right = false;
-
-// } pressed;
 
 int pinArray[10]; // array to contain the pin states
 
