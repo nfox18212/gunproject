@@ -104,8 +104,12 @@ void loop() {
     //incr += 255;  // Increase PWM value
     
     delay(100);  // Debounce delay
+    digitalWrite(triggerPin, HIGH);  
+    digitalWrite(triggerPin2, HIGH); 
+
 
     while (!ss.digitalRead(SWITCH1)) { 
+
         //checks for switch 2
         triggerState = digitalRead(triggerPin);
 
@@ -114,6 +118,7 @@ void loop() {
         } else {
             Keyboard.release(KEY_UP_ARROW); 
         }
+        
 
         triggerState2 = digitalRead(triggerPin2);
         //checks for switch 3
@@ -178,45 +183,45 @@ void loop() {
   // second breakout board WYWG
   if (!ss2.digitalRead(SWITCH1)) {
     Serial.println("Switch 1 pressed");
-    Keyboard.press('g');  
+    Keyboard.press('3');  
     ss2.analogWrite(PWM1, 255);
     //incr += 255;
     delay(100);  // Debounce delay
   } else {
-    Keyboard.release('g');
+    Keyboard.release('3');
     ss2.analogWrite(PWM1, 0);
   }
 
   if (!ss2.digitalRead(SWITCH2)) {
     Serial.println("Switch 2 pressed");
-    Keyboard.press('1');  
+    Keyboard.press('2');  
     ss2.analogWrite(PWM2, 255);
     //incr += 255;
     delay(100);  // Debounce delay
   } else {
-    Keyboard.release('1');
+    Keyboard.release('2');
     ss2.analogWrite(PWM2, 0);
   }
 
   if (!ss2.digitalRead(SWITCH3)) {
     Serial.println("Switch 3 pressed");
-    Keyboard.press('2');  
+    Keyboard.press('1');  
     ss2.analogWrite(PWM3, 255);
     //incr += 255;
     delay(100);  // Debounce delay
   } else {
-    Keyboard.release('2');
+    Keyboard.release('1');
     ss2.analogWrite(PWM3, 0);
   }
 
-  if (!ss2.digitalRead(SWITCH4)) {
+  if (!ss2.digitalRead(SWITCH4)) { //green
     Serial.println("Switch 4 pressed");
-    Keyboard.press('3');  
+    Keyboard.press('q');  
     ss2.analogWrite(PWM4, 255);
     //incr += 255;
     delay(100);  // Debounce delay
   } else {
-    Keyboard.release('3');
+    Keyboard.release('q');
     ss2.analogWrite(PWM4, 0);
   }
 
