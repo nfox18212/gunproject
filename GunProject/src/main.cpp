@@ -1,8 +1,8 @@
-#include "Adafruit_seesaw.h"
+#include <Adafruit_seesaw.h>
 #include <seesaw_neopixel.h>
 #include <Keyboard.h>
 #include <Mouse.h>
-
+#include <SPI.h>
 
 #define DEFAULT_I2C_ADDR 0x3A
 
@@ -21,10 +21,12 @@
 
 
 const int triggerPin = 4;
+const int triggerPin2 = 5;
 Adafruit_seesaw ss;
 Adafruit_seesaw ss2;
 
 int triggerState = 0;  
+int triggerState2 = 0; 
 
 void setup() {
   Serial.begin(115200);
@@ -74,8 +76,6 @@ void setup() {
   ss2.pinMode(SWITCH4, INPUT_PULLUP);
 
   pinMode(triggerPin, INPUT_PULLUP);
-
-
   // Initialize PWM pins with a default value 127
   ss.analogWrite(PWM1, 0);
   ss.analogWrite(PWM2, 0);
@@ -87,35 +87,42 @@ void setup() {
   ss2.analogWrite(PWM3, 0);
   ss2.analogWrite(PWM4, 0);
 
-  
-
   // Start Keyboard library
   Keyboard.begin();
 }
 
-uint8_t incr = 0;
+//uint8_t incr = 0;
 
 void loop() {
   // Check button press and handle accordingly
   if (!ss.digitalRead(SWITCH1)) { //WHITE
     Serial.println("Switch 1 pressed");
     
-    Keyboard.press('q');
+    Keyboard.press('e');
 
     ss.analogWrite(PWM1, 255);
     //incr += 255;  // Increase PWM value
     
     delay(100);  // Debounce delay
+    digitalWrite(triggerPin, HIGH);  
+    digitalWrite(triggerPin2, HIGH); 
+
 
     while (!ss.digitalRead(SWITCH1)) { 
+
         //checks for switch 2
-        if (!ss.digitalRead(SWITCH2)) { 
+        triggerState = digitalRead(triggerPin);
+
+        if (triggerState == LOW) { 
             Keyboard.press(KEY_UP_ARROW); 
         } else {
             Keyboard.release(KEY_UP_ARROW); 
         }
+        
+
+        triggerState2 = digitalRead(triggerPin2);
         //checks for switch 3
-        if (!ss.digitalRead(SWITCH3)) { 
+        if (triggerState2 == LOW) { 
             Keyboard.press(KEY_DOWN_ARROW);  
         } else {
             Keyboard.release(KEY_DOWN_ARROW); 
@@ -123,7 +130,7 @@ void loop() {
 
         delay(50); 
     }
-    Keyboard.release('q');  
+    Keyboard.release('e');  
     ss.analogWrite(PWM1, 0);  // Turn off PWM
   }
 
@@ -133,36 +140,36 @@ void loop() {
     Serial.println("Switch 2 pressed");
 
     
-    Keyboard.press('t');  
-    ss.analogWrite(PWM2, incr);
-    incr += 255;
+    Keyboard.press('r');  
+    ss.analogWrite(PWM2, 255);
+    //incr += 255;
     delay(100);  // Debounce delay
   } else {
-    Keyboard.release('t');
+    Keyboard.release('r');
     ss.analogWrite(PWM2, 0);
   }
 
   if (!ss.digitalRead(SWITCH3)) {
     Serial.println("Switch 3 pressed");
-    Keyboard.press('c');  // Send 'c' key
+    Keyboard.press('f');  // Send 'c' key
    
-    ss.analogWrite(PWM3, incr);
-    incr += 225;
+    ss.analogWrite(PWM3, 255);
+    //incr += 225;
     delay(100);  // Debounce delay
   } else {
-    Keyboard.release('c');
+    Keyboard.release('f');
     ss.analogWrite(PWM3, 0);
   }
 
 
   if (!ss.digitalRead(SWITCH4)) {
     Serial.println("Switch 4 pressed");
-    Keyboard.press('d');  // Send 'd' key
-    ss.analogWrite(PWM4, incr);
-    incr += 255;
+    Keyboard.press('4');  // Send 'd' key
+    ss.analogWrite(PWM4, 255);
+    //incr += 255;
     delay(100);  // Debounce delay
   } else {
-    Keyboard.release('d');
+    Keyboard.release('4');
     ss.analogWrite(PWM4, 0);
   }
   /////////////////////////////////////////////////////////////////////
@@ -176,45 +183,45 @@ void loop() {
   // second breakout board WYWG
   if (!ss2.digitalRead(SWITCH1)) {
     Serial.println("Switch 1 pressed");
-    Keyboard.press('p');  
+    Keyboard.press('3');  
     ss2.analogWrite(PWM1, 255);
     //incr += 255;
     delay(100);  // Debounce delay
   } else {
-    Keyboard.release('p');
+    Keyboard.release('3');
     ss2.analogWrite(PWM1, 0);
   }
 
   if (!ss2.digitalRead(SWITCH2)) {
     Serial.println("Switch 2 pressed");
-    Keyboard.press('k');  
+    Keyboard.press('2');  
     ss2.analogWrite(PWM2, 255);
     //incr += 255;
     delay(100);  // Debounce delay
   } else {
-    Keyboard.release('k');
+    Keyboard.release('2');
     ss2.analogWrite(PWM2, 0);
   }
 
   if (!ss2.digitalRead(SWITCH3)) {
     Serial.println("Switch 3 pressed");
-    Keyboard.press('l');  
+    Keyboard.press('1');  
     ss2.analogWrite(PWM3, 255);
     //incr += 255;
     delay(100);  // Debounce delay
   } else {
-    Keyboard.release('l');
+    Keyboard.release('1');
     ss2.analogWrite(PWM3, 0);
   }
 
-  if (!ss2.digitalRead(SWITCH4)) {
+  if (!ss2.digitalRead(SWITCH4)) { //green
     Serial.println("Switch 4 pressed");
-    Keyboard.press('x');  
+    Keyboard.press('q');  
     ss2.analogWrite(PWM4, 255);
     //incr += 255;
     delay(100);  // Debounce delay
   } else {
-    Keyboard.release('x');
+    Keyboard.release('q');
     ss2.analogWrite(PWM4, 0);
   }
 
@@ -223,6 +230,13 @@ void loop() {
     Mouse.press(MOUSE_LEFT);          // Simulate left mouse click
   } else {                            // Trigger is released
     Mouse.release(MOUSE_LEFT);        // Release left mouse click
+  }
+
+  triggerState2 = digitalRead(triggerPin2);
+  if (triggerState2 == LOW) {          // Trigger is pressed
+    Mouse.press(MOUSE_RIGHT);          // Simulate left mouse click
+  } else {                            // Trigger is released
+    Mouse.release(MOUSE_RIGHT);        // Release left mouse click
   }
 
   delay(10); // Debounce delay
