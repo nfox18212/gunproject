@@ -11,15 +11,12 @@ int pinArray[8]; // array to contain the pin states
 byte pinStates = 0b00000000;
 // first two bits are the two forward parts of the pad
 
-static bool sendKeyboard = false;
-static bool toggleSprint = false;
+// static bool toggleSprint = false;
+
+int newHigh = 0;
 
 
-
-void int_ToggleSendInputs(){ // interrupt to enable/disable sending of keyboard input
-  sendKeyboard = !sendKeyboard; // invert it
-}
-
+                                                       
 
 void setup()
 {
@@ -28,10 +25,20 @@ void setup()
     pinMode(i, INPUT);
   }
 
-  pinMode(interrupt_pin, INPUT);
+  pinMode(TX_PIN, INPUT);
 
-  attachInterrupt(digitalPinToInterrupt(interrupt_pin), int_ToggleSendInputs, RISING); // set the ISR to toggle inputs
+  pinMode(13, OUTPUT);
+  pinMode(12, OUTPUT);
+  pinMode(11, OUTPUT);
+  pinMode(10, OUTPUT);
 
+  // define set states for LEDs
+  digitalWrite(15, LOW);
+  digitalWrite(14, LOW);
+  digitalWrite(16, LOW);
+  digitalWrite(10, LOW);
+
+  Serial.begin(9600);
 }
 
 void loop()
@@ -43,31 +50,51 @@ void loop()
     pinStates = (pinStates << 1) + state; // put the state into the byte
   }
 
-  char sendKey = '\0'; // default to null, this will be the key the arduino sends
-  char modifierKeys[] = "none"; // will be important for sprinting, not needed rn
+  int pinVal = 0;
+  pinVal = analogRead(A0);
 
-  /* determine what key to send
-   i can't think of a clever way to read through the bytes, so i'm doing
+  if (digitalRead(TX_PIN) == HIGH){
+    newHigh = -1;
+    Serial.print("Resetting newHigh value, newHigh is now: ");
+    Serial.println(newHigh);
+  }
+  
+  if (pinVal > newHigh) {
+    newHigh = pinVal;
+    Serial.print("New high is: ");
+    Serial.println(newHigh);
+  }
+
+
+  // stall for 600 ms, just so it won't spam
+  // delay(600);
+  char sendKey = '\0';                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 // default to null, this will be the key the arduino sends
+  // char modifierKeys[] = "none"; // will be important for sprinting, not needed r  /* determine what key to send
+  /* i can't think of a clever way to read through the bytes, so i'm doing
    it the stupid manual way */
+
+
   switch (pinStates){
     case 0b10100000:
     case 0b01010000:
     case 0b10010000:
     case 0b01100000:
       // look for walk input
-      sendKey = 'w'; 
+      sendKey = 'w';                            
       break;
     default:
-      sendKey = ' '; // if input combo is wrong, send a space for now
+      sendKey = '\0'; // if input combo is wrong, send a null for now
   }
 
-  // stall for 600 ms, just so it won't spam
-  delay(600);
 
-  if(sendKeyboard){
+  if(digitalRead(TX_PIN) == HIGH){
+
+    digitalWrite(13, HIGH);
     Keyboard.begin(KeyboardLayout_en_US);
     Keyboard.press(sendKey);
     Keyboard.end();
+  } else {
+    digitalWrite(13, LOW);
   }
 
 }
