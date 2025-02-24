@@ -7,7 +7,7 @@
 
 // put function declarations here:
 
-int pinArray[8]; // array to contain the pin states
+
 byte pinStates = 0b00000000;
 // first two bits are the two forward parts of the pad
 
@@ -15,6 +15,7 @@ byte pinStates = 0b00000000;
 
 int newHigh = 0;
 
+int apinArray[10] = {A0, A1, A2, A3, A4, A5, A6, A7, A8, A9};
 
                                                        
 
@@ -65,6 +66,7 @@ void loop()
     Serial.println(newHigh);
   }
 
+  int 
 
   // stall for 600 ms, just so it won't spam
   // delay(600);
@@ -86,7 +88,6 @@ void loop()
       sendKey = '\0'; // if input combo is wrong, send a null for now
   }
 
-
   if(digitalRead(TX_PIN) == HIGH){
 
     digitalWrite(13, HIGH);
@@ -97,6 +98,21 @@ void loop()
     digitalWrite(13, LOW);
   }
 
+}
+
+int updateState(){
+  // using A0 - A9
+  int state = 0;
+  for (pin : aPinArray){
+    int aVal = analogRead(pin); // grab the value of the current pin
+    // 600 is the threshold value
+    // bitshift
+    state = state >> 1;
+    if (aVal > THRESHOLD){
+      
+    }
+
+  }
 }
 
 // put function definitions here:
