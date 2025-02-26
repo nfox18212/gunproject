@@ -1,8 +1,10 @@
-#include <main.hpp>
 #include <conf.hpp>
+#include <util.hpp>
+#include <Arduino.h>
 
 #define c1 pin.c1
 #define c2 pin.c2
+
 
 twoChar readableAnalogPin(int index){
 
@@ -69,11 +71,23 @@ void breakpoint(){
         // }
     }
 
-    delay(100); // delay
+    // delay(100); // delay
     // turn that led off to show we're leaving the breakpoint
     digitalWrite(BLUE_LED, LOW);
 
     continueBreakpoint = true;
     
     return;
+}
+
+void breakpoint2(){
+    
+    digitalWrite(RED_LED, HIGH);
+    
+    while(digitalRead(5) == LOW){
+        Serial.println("STALL");
+    }
+
+    digitalWrite(RED_LED, LOW);
+
 }

@@ -1,8 +1,9 @@
 
 #include <main.hpp>
 #include <conf.hpp>
+#include <util.hpp>
 
-bool continueBreakpoint = true;
+
 
 // put function declarations here:
 
@@ -14,20 +15,45 @@ bool continueBreakpoint = true;
 
 int apinArray[10] = {A0, A1, A2, A3, A4, A5, A6, A7, A8, A9};
 
+volatile bool continueBreakpoint = true; 
+
 void isr_exitBP(void){
   continueBreakpoint = false;
   
   digitalWrite(GREEN_LED, HIGH); // signify that we're in an ISR
   // stalling for loop
-  for(int i = 0; i < 1000000; i++); // delay() without using delay()
+  
+  Serial.println("INSIDE isr_EXITBP");
+  delayMicroseconds(10000); // wait for a while
+
   digitalWrite(GREEN_LED, LOW);
 
 }
-                                                       
+                 
+// ISR(INT1_vect){
+ 
+//   digitalWrite(RED_LED, HIGH);
+
+//   Serial.println("INSIDE INT1_VECT ISR");
+//   delayMicroseconds(10000);
+
+//   digitalWrite(RED_LED, LOW);
+
+// }
 
 void setup()
 {
+  Serial.begin(9600);
+  pinMode(5, INPUT_PULLUP);
 
+  while(digitalRead(5) != LOW){
+    Serial.println("STALL");
+  } 
+  Serial.println("LEAVING STALL");
+
+  delay(1000);
+
+  pinMode(3, INPUT_PULLUP);
   pinMode(6, INPUT_PULLUP);
 
   pinMode(TX_PIN, INPUT);
@@ -41,14 +67,16 @@ void setup()
   digitalWrite(15, LOW); 
   digitalWrite(14, LOW);
   digitalWrite(16, LOW);
-  digitalWrite(10, HIGH); // to see if program is active
+  digitalWrite(10, LOW); // to see if program is active
 
 
   // set up breakpoint ISR
-  attachInterrupt(digitalPinToInterrupt(0), isr_exitBP, FALLING);
+  attachInterrupt(digitalPinToInterrupt(0), isr_exitBP, RISING);
 
-  Serial.begin(9600);
+  
   Serial.println("STARTING PROGRAM!!!");
+
+  breakpoint2();
 }
 
 void loop()
@@ -67,7 +95,7 @@ void loop()
 
   bp();
 
-  delay(100);
+  // delay(100);
 
   char sendKey = '\0'; // default to null, this will be the key the arduino sends
   // char modifierKeys[] = "none"; // will be important for sprinting, not needed r  /* determine what key to send
