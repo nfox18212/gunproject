@@ -1,0 +1,467 @@
+[4mprintf[24m(3)                                    Library Functions Manual                                   [4mprintf[24m(3)
+
+[1mNAME[0m
+       printf,  fprintf, dprintf, sprintf, snprintf, vprintf, vfprintf, vdprintf, vsprintf, vsnprintf - formatted
+       output conversion
+
+[1mLIBRARY[0m
+       Standard C library ([4mlibc[24m, [4m-lc[24m)
+
+[1mSYNOPSIS[0m
+       [1m#include <stdio.h>[0m
+
+       [1mint printf(const char *restrict [4m[22mformat[24m[1m, ...);[0m
+       [1mint fprintf(FILE *restrict [4m[22mstream[24m[1m,[0m
+                   [1mconst char *restrict [4m[22mformat[24m[1m, ...);[0m
+       [1mint dprintf(int [4m[22mfd[24m[1m,[0m
+                   [1mconst char *restrict [4m[22mformat[24m[1m, ...);[0m
+       [1mint sprintf(char *restrict [4m[22mstr[24m[1m,[0m
+                   [1mconst char *restrict [4m[22mformat[24m[1m, ...);[0m
+       [1mint snprintf(char [4m[22mstr[24m[1m[restrict .[4m[22msize[24m[1m], size_t [4m[22msize[24m[1m,[0m
+                   [1mconst char *restrict [4m[22mformat[24m[1m, ...);[0m
+
+       [1mint vprintf(const char *restrict [4m[22mformat[24m[1m, va_list [4m[22map[24m[1m);[0m
+       [1mint vfprintf(FILE *restrict [4m[22mstream[24m[1m,[0m
+                   [1mconst char *restrict [4m[22mformat[24m[1m, va_list [4m[22map[24m[1m);[0m
+       [1mint vdprintf(int [4m[22mfd[24m[1m,[0m
+                   [1mconst char *restrict [4m[22mformat[24m[1m, va_list [4m[22map[24m[1m);[0m
+       [1mint vsprintf(char *restrict [4m[22mstr[24m[1m,[0m
+                   [1mconst char *restrict [4m[22mformat[24m[1m, va_list [4m[22map[24m[1m);[0m
+       [1mint vsnprintf(char [4m[22mstr[24m[1m[restrict .[4m[22msize[24m[1m], size_t [4m[22msize[24m[1m,[0m
+                   [1mconst char *restrict [4m[22mformat[24m[1m, va_list [4m[22map[24m[1m);[0m
+
+   Feature Test Macro Requirements for glibc (see [1mfeature_test_macros[22m(7)):
+
+       [1msnprintf[22m(), [1mvsnprintf[22m():
+           _XOPEN_SOURCE >= 500 || _ISOC99_SOURCE
+               || /* glibc <= 2.19: */ _BSD_SOURCE
+
+       [1mdprintf[22m(), [1mvdprintf[22m():
+           Since glibc 2.10:
+               _POSIX_C_SOURCE >= 200809L
+           Before glibc 2.10:
+               _GNU_SOURCE
+
+[1mDESCRIPTION[0m
+       The functions in the [1mprintf[22m() family produce output according to a [4mformat[24m as described below.   The  func‐
+       tions  [1mprintf[22m() and [1mvprintf[22m() write output to [4mstdout[24m, the standard output stream; [1mfprintf[22m() and [1mvfprintf[22m()
+       write output to the given output [4mstream[24m; [1msprintf[22m(), [1msnprintf[22m(), [1mvsprintf[22m(), and [1mvsnprintf[22m() write  to  the
+       character string [4mstr[24m.
+
+       The  function  [1mdprintf[22m() is the same as [1mfprintf[22m() except that it outputs to a file descriptor, [4mfd[24m, instead
+       of to a [1mstdio[22m(3) stream.
+
+       The functions [1msnprintf[22m() and [1mvsnprintf[22m() write at most [4msize[24m bytes (including  the  terminating  null  byte
+       ('\0')) to [4mstr[24m.
+
+       The  functions  [1mvprintf[22m(), [1mvfprintf[22m(), [1mvdprintf[22m(), [1mvsprintf[22m(), [1mvsnprintf[22m() are equivalent to the functions
+       [1mprintf[22m(), [1mfprintf[22m(), [1mdprintf[22m(), [1msprintf[22m(), [1msnprintf[22m(), respectively, except that they are  called  with  a
+       [4mva_list[24m instead of a variable number of arguments.  These functions do not call the [4mva_end[24m macro.  Because
+       they invoke the [4mva_arg[24m macro, the value of [4map[24m is undefined after the call.  See [1mstdarg[22m(3).
+
+       All of these functions write the output under the control of a [4mformat[24m string that specifies how subsequent
+       arguments  (or  arguments accessed via the variable-length argument facilities of [1mstdarg[22m(3)) are converted
+       for output.
+
+       C99 and POSIX.1-2001 specify  that  the  results  are  undefined  if  a  call  to  [1msprintf[22m(),  [1msnprintf[22m(),
+       [1mvsprintf[22m(),  or  [1mvsnprintf[22m()  would cause copying to take place between objects that overlap (e.g., if the
+       target string array and one of the supplied input arguments refer to the same buffer).  See CAVEATS.
+
+   [1mFormat of the format string[0m
+       The format string is a character string, beginning and ending in its initial shift  state,  if  any.   The
+       format  string  is  composed of zero or more directives: ordinary characters (not [1m%[22m), which are copied un‐
+       changed to the output stream; and conversion specifications, each of which results  in  fetching  zero  or
+       more  subsequent arguments.  Each conversion specification is introduced by the character [1m%[22m, and ends with
+       a [4mconversion[24m [4mspecifier[24m.  In between there may be (in this order) zero or more [4mflags[24m, an  optional  minimum
+       [4mfield[24m [4mwidth[24m, an optional [4mprecision[24m and an optional [4mlength[24m [4mmodifier[24m.
+
+       The overall syntax of a conversion specification is:
+
+           %[$][flags][width][.precision][length modifier]conversion
+
+       The  arguments must correspond properly (after type promotion) with the conversion specifier.  By default,
+       the arguments are used in the order given, where each '*' (see [4mField[24m [4mwidth[24m and [4mPrecision[24m below)  and  each
+       conversion  specifier  asks for the next argument (and it is an error if insufficiently many arguments are
+       given).  One can also specify explicitly which argument is taken, at each place where an argument  is  re‐
+       quired,  by writing "%m$" instead of '%' and "*m$" instead of '*', where the decimal integer [4mm[24m denotes the
+       position in the argument list of the desired argument, indexed starting from 1.  Thus,
+
+           printf("%*d", width, num);
+
+       and
+
+           printf("%2$*1$d", width, num);
+
+       are equivalent.  The second style allows repeated references to the same argument.  The C99 standard  does
+       not  include  the style using '$', which comes from the Single UNIX Specification.  If the style using '$'
+       is used, it must be used throughout for all conversions taking an argument and all width and precision ar‐
+       guments, but it may be mixed with "%%" formats, which do not consume an argument.  There may be no gaps in
+       the numbers of arguments specified using '$'; for example, if arguments 1 and 3 are specified, argument  2
+       must also be specified somewhere in the format string.
+
+       For some numeric conversions a radix character ("decimal point") or thousands' grouping character is used.
+       The  actual  character  used depends on the [1mLC_NUMERIC [22mpart of the locale.  (See [1msetlocale[22m(3).)  The POSIX
+       locale uses '.' as radix character, and does not have a grouping character.  Thus,
+
+           printf("%'.2f", 1234567.89);
+
+       results in "1234567.89" in the POSIX locale, in "1234567,89" in the nl_NL locale, and in "1.234.567,89" in
+       the da_DK locale.
+
+   [1mFlag characters[0m
+       The character % is followed by zero or more of the following flags:
+
+       [1m#      [22mThe value should be converted to an "alternate form".  For [1mo [22mconversions, the  first  character  of
+              the  output string is made zero (by prefixing a 0 if it was not zero already).  For [1mx [22mand [1mX [22mconver‐
+              sions, a nonzero result has the string "0x" (or "0X" for [1mX [22mconversions) prepended to it.  For [1ma[22m, [1mA[22m,
+              [1me[22m, [1mE[22m, [1mf[22m, [1mF[22m, [1mg[22m, and [1mG [22mconversions, the result will always contain a decimal point, even if no digits
+              follow it (normally, a decimal point appears in the results of those conversions only  if  a  digit
+              follows).   For  [1mg  [22mand [1mG [22mconversions, trailing zeros are not removed from the result as they would
+              otherwise be.  For [1mm[22m, if [4merrno[24m contains a valid error code, the output of [4mstrerrorname_np(errno)[24m is
+              printed; otherwise, the value stored in [4merrno[24m is printed as a decimal number.   For  other  conver‐
+              sions, the result is undefined.
+
+       [1m0      [22mThe value should be zero padded.  For [1md[22m, [1mi[22m, [1mo[22m, [1mu[22m, [1mx[22m, [1mX[22m, [1ma[22m, [1mA[22m, [1me[22m, [1mE[22m, [1mf[22m, [1mF[22m, [1mg[22m, and [1mG [22mconversions, the
+              converted value is padded on the left with zeros rather than blanks.  If the [1m0 [22mand [1m- [22mflags both ap‐
+              pear,  the  [1m0  [22mflag is ignored.  If a precision is given with an integer conversion ([1md[22m, [1mi[22m, [1mo[22m, [1mu[22m, [1mx[22m,
+              and [1mX[22m), the [1m0 [22mflag is ignored.  For other conversions, the behavior is undefined.
+
+       [1m-      [22mThe converted value is to be left adjusted on the field boundary.  (The default is right justifica‐
+              tion.)  The converted value is padded on the right with blanks, rather than on the left with blanks
+              or zeros.  A [1m- [22moverrides a [1m0 [22mif both are given.
+
+       [1m' '    [22m(a space) A blank should be left before a positive number (or empty string) produced  by  a  signed
+              conversion.
+
+       [1m+      [22mA  sign  (+  or -) should always be placed before a number produced by a signed conversion.  By de‐
+              fault, a sign is used only for negative numbers.  A [1m+ [22moverrides a space if both are used.
+
+       The five flag characters above are defined in the C99 standard.  The Single UNIX  Specification  specifies
+       one further flag character.
+
+       [1m'      [22mFor  decimal  conversion ([1mi[22m, [1md[22m, [1mu[22m, [1mf[22m, [1mF[22m, [1mg[22m, [1mG[22m) the output is to be grouped with thousands' grouping
+              characters if the locale information indicates any.  (See [1msetlocale[22m(3).)  Note that  many  versions
+              of [1mgcc[22m(1) cannot parse this option and will issue a warning.  (SUSv2 did not include [4m%'F[24m, but SUSv3
+              added  it.)  Note also that the default locale of a C program is "C" whose locale information indi‐
+              cates no thousands' grouping character.  Therefore, without a prior call to [1msetlocale[22m(3), no  thou‐
+              sands' grouping characters will be printed.
+
+       glibc 2.2 adds one further flag character.
+
+       [1mI      [22mFor decimal integer conversion ([1mi[22m, [1md[22m, [1mu[22m) the output uses the locale's alternative output digits, if
+              any.   For  example,  since glibc 2.2.3 this will give Arabic-Indic digits in the Persian ("fa_IR")
+              locale.
+
+   [1mField width[0m
+       An optional decimal digit string (with nonzero first digit) specifying a minimum field width.  If the con‐
+       verted value has fewer characters than the field width, it will be padded with  spaces  on  the  left  (or
+       right,  if  the left-adjustment flag has been given).  Instead of a decimal digit string one may write "*"
+       or "*m$" (for some decimal integer [4mm[24m) to specify that the field width is given in the next argument, or in
+       the [4mm[24m-th argument, respectively, which must be of type [4mint[24m.  A negative field width is taken as a '-' flag
+       followed by a positive field width.  In no case does a nonexistent or small field width  cause  truncation
+       of  a field; if the result of a conversion is wider than the field width, the field is expanded to contain
+       the conversion result.
+
+   [1mPrecision[0m
+       An optional precision, in the form of a period ('.')  followed by an optional decimal digit  string.   In‐
+       stead  of  a  decimal digit string one may write "*" or "*m$" (for some decimal integer [4mm[24m) to specify that
+       the precision is given in the next argument, or in the [4mm[24m-th argument, respectively, which must be of  type
+       [4mint[24m.   If  the precision is given as just '.', the precision is taken to be zero.  A negative precision is
+       taken as if the precision were omitted.  This gives the minimum number of digits to appear for [1md[22m, [1mi[22m, [1mo[22m, [1mu[22m,
+       [1mx[22m, and [1mX [22mconversions, the number of digits to appear after the radix character for [1ma[22m, [1mA[22m, [1me[22m, [1mE[22m,  [1mf[22m,  and  [1mF[0m
+       conversions,  the  maximum  number of significant digits for [1mg [22mand [1mG [22mconversions, or the maximum number of
+       characters to be printed from a string for [1ms [22mand [1mS [22mconversions.
+
+   [1mLength modifier[0m
+       Here, "integer conversion" stands for [1md[22m, [1mi[22m, [1mo[22m, [1mu[22m, [1mx[22m, or [1mX [22mconversion.
+
+       [1mhh     [22mA following integer conversion corresponds to a [4msigned[24m [4mchar[24m or [4munsigned[24m [4mchar[24m argument, or a follow‐
+              ing [1mn [22mconversion corresponds to a pointer to a [4msigned[24m [4mchar[24m argument.
+
+       [1mh      [22mA following integer conversion corresponds to a [4mshort[24m or [4munsigned[24m [4mshort[24m argument, or a following  [1mn[0m
+              conversion corresponds to a pointer to a [4mshort[24m argument.
+
+       [1ml      [22m(ell)  A following integer conversion corresponds to a [4mlong[24m or [4munsigned[24m [4mlong[24m argument, or a follow‐
+              ing [1mn [22mconversion corresponds to a pointer to a [4mlong[24m argument, or a following  [1mc  [22mconversion  corre‐
+              sponds  to a [4mwint_t[24m argument, or a following [1ms [22mconversion corresponds to a pointer to [4mwchar_t[24m argu‐
+              ment.  On a following [1ma[22m, [1mA[22m, [1me[22m, [1mE[22m, [1mf[22m, [1mF[22m, [1mg[22m, or [1mG [22mconversion, this length modifier is  ignored  (C99;
+              not in SUSv2).
+
+       [1mll     [22m(ell-ell).   A  following integer conversion corresponds to a [4mlong[24m [4mlong[24m or [4munsigned[24m [4mlong[24m [4mlong[24m argu‐
+              ment, or a following [1mn [22mconversion corresponds to a pointer to a [4mlong[24m [4mlong[24m argument.
+
+       [1mq      [22mA synonym for [1mll[22m.  This is a nonstandard extension, derived from BSD; avoid its use in new code.
+
+       [1mL      [22mA following [1ma[22m, [1mA[22m, [1me[22m, [1mE[22m, [1mf[22m, [1mF[22m, [1mg[22m, or [1mG [22mconversion corresponds to a [4mlong[24m [4mdouble[24m argument.   (C99  al‐
+              lows %LF, but SUSv2 does not.)
+
+       [1mj      [22mA  following  integer conversion corresponds to an [4mintmax_t[24m or [4muintmax_t[24m argument, or a following [1mn[0m
+              conversion corresponds to a pointer to an [4mintmax_t[24m argument.
+
+       [1mz      [22mA following integer conversion corresponds to a [4msize_t[24m or [4mssize_t[24m argument, or a following  [1mn  [22mcon‐
+              version corresponds to a pointer to a [4msize_t[24m argument.
+
+       [1mZ      [22mA nonstandard synonym for [1mz [22mthat predates the appearance of [1mz[22m.  Do not use in new code.
+
+       [1mt      [22mA  following  integer  conversion  corresponds to a [4mptrdiff_t[24m argument, or a following [1mn [22mconversion
+              corresponds to a pointer to a [4mptrdiff_t[24m argument.
+
+       SUSv3 specifies all of the above, except for those modifiers explicitly noted as being nonstandard  exten‐
+       sions.   SUSv2 specified only the length modifiers [1mh [22m(in [1mhd[22m, [1mhi[22m, [1mho[22m, [1mhx[22m, [1mhX[22m, [1mhn[22m) and [1ml [22m(in [1mld[22m, [1mli[22m, [1mlo[22m, [1mlx[22m,
+       [1mlX[22m, [1mln[22m, [1mlc[22m, [1mls[22m) and [1mL [22m(in [1mLe[22m, [1mLE[22m, [1mLf[22m, [1mLg[22m, [1mLG[22m).
+
+       As a nonstandard extension, the GNU implementations treats [1mll [22mand [1mL [22mas synonyms, so that one can, for  ex‐
+       ample, write [1mllg [22m(as a synonym for the standards-compliant [1mLg[22m) and [1mLd [22m(as a synonym for the standards com‐
+       pliant [1mlld[22m).  Such usage is nonportable.
+
+   [1mConversion specifiers[0m
+       A  character  that  specifies  the  type of conversion to be applied.  The conversion specifiers and their
+       meanings are:
+
+       [1md[22m, [1mi   [22mThe [4mint[24m argument is converted to signed decimal notation.  The precision, if any, gives the minimum
+              number of digits that must appear; if the converted value requires fewer digits, it  is  padded  on
+              the  left with zeros.  The default precision is 1.  When 0 is printed with an explicit precision 0,
+              the output is empty.
+
+       [1mo[22m, [1mu[22m, [1mx[22m, [1mX[0m
+              The [4munsigned[24m [4mint[24m argument is converted to unsigned octal ([1mo[22m), unsigned  decimal  ([1mu[22m),  or  unsigned
+              hexadecimal  ([1mx [22mand [1mX[22m) notation.  The letters [1mabcdef [22mare used for [1mx [22mconversions; the letters [1mABCDEF[0m
+              are used for [1mX [22mconversions.  The precision, if any, gives the minimum number of  digits  that  must
+              appear; if the converted value requires fewer digits, it is padded on the left with zeros.  The de‐
+              fault precision is 1.  When 0 is printed with an explicit precision 0, the output is empty.
+
+       [1me[22m, [1mE   [22mThe  [4mdouble[24m  argument  is  rounded and converted in the style [-]d[1m.[22mddd[1me[22m±dd where there is one digit
+              (which is nonzero if the argument is nonzero) before the decimal-point character and the number  of
+              digits  after  it  is equal to the precision; if the precision is missing, it is taken as 6; if the
+              precision is zero, no decimal-point character appears.  An [1mE [22mconversion uses the letter  [1mE  [22m(rather
+              than  [1me[22m) to introduce the exponent.  The exponent always contains at least two digits; if the value
+              is zero, the exponent is 00.
+
+       [1mf[22m, [1mF   [22mThe [4mdouble[24m argument is rounded and converted to decimal notation in the style [-]ddd[1m.[22mddd, where the
+              number of digits after the decimal-point character is equal to the precision specification.  If the
+              precision is missing, it is taken as 6; if the precision is explicitly zero, no decimal-point char‐
+              acter appears.  If a decimal point appears, at least one digit appears before it.
+
+              (SUSv2 does not know about [1mF [22mand says that character string representations for  infinity  and  NaN
+              may  be  made available.  SUSv3 adds a specification for [1mF[22m.  The C99 standard specifies "[-]inf" or
+              "[-]infinity" for infinity, and a string starting with "nan" for NaN, in the case of [1mf  [22mconversion,
+              and "[-]INF" or "[-]INFINITY" or "NAN" in the case of [1mF [22mconversion.)
+
+       [1mg[22m, [1mG   [22mThe  [4mdouble[24m  argument  is  converted  in style [1mf [22mor [1me [22m(or [1mF [22mor [1mE [22mfor [1mG [22mconversions).  The precision
+              specifies the number of significant digits.  If the precision is missing, 6 digits  are  given;  if
+              the  precision is zero, it is treated as 1.  Style [1me [22mis used if the exponent from its conversion is
+              less than -4 or greater than or equal to the precision.  Trailing zeros are removed from the  frac‐
+              tional part of the result; a decimal point appears only if it is followed by at least one digit.
+
+       [1ma[22m, [1mA   [22m(C99; not in SUSv2, but added in SUSv3) For [1ma [22mconversion, the [4mdouble[24m argument is converted to hexa‐
+              decimal  notation (using the letters abcdef) in the style [-][1m0x[22mh[1m.[22mhhhh[1mp[22m±d; for [1mA [22mconversion the pre‐
+              fix [1m0X[22m, the letters ABCDEF, and the exponent separator [1mP [22mis used.  There is one  hexadecimal  digit
+              before the decimal point, and the number of digits after it is equal to the precision.  The default
+              precision  suffices  for  an exact representation of the value if an exact representation in base 2
+              exists and otherwise is sufficiently large to distinguish values of type [4mdouble[24m.  The digit  before
+              the  decimal  point is unspecified for nonnormalized numbers, and nonzero but otherwise unspecified
+              for normalized numbers.  The exponent always contains at least one digit; if the value is zero, the
+              exponent is 0.
+
+       [1mc      [22mIf no [1ml [22mmodifier is present, the [4mint[24m argument is converted to an [4munsigned[24m [4mchar[24m, and  the  resulting
+              character  is  written.   If an [1ml [22mmodifier is present, the [4mwint_t[24m (wide character) argument is con‐
+              verted to a multibyte sequence by a call to the [1mwcrtomb[22m(3) function, with a conversion state start‐
+              ing in the initial state, and the resulting multibyte string is written.
+
+       [1ms      [22mIf no [1ml [22mmodifier is present: the [4mconst[24m [4mchar[24m [4m*[24m argument is expected to be a pointer to an  array  of
+              character type (pointer to a string).  Characters from the array are written up to (but not includ‐
+              ing) a terminating null byte ('\0'); if a precision is specified, no more than the number specified
+              are written.  If a precision is given, no null byte need be present; if the precision is not speci‐
+              fied, or is greater than the size of the array, the array must contain a terminating null byte.
+
+              If  an  [1ml [22mmodifier is present: the [4mconst[24m [4mwchar_t[24m [4m*[24m argument is expected to be a pointer to an array
+              of wide characters.  Wide characters from the array are converted to multibyte characters (each  by
+              a call to the [1mwcrtomb[22m(3) function, with a conversion state starting in the initial state before the
+              first wide character), up to and including a terminating null wide character.  The resulting multi‐
+              byte characters are written up to (but not including) the terminating null byte.  If a precision is
+              specified, no more bytes than the number specified are written, but no partial multibyte characters
+              are  written.   Note  that  the precision determines the number of [4mbytes[24m written, not the number of
+              [4mwide[24m [4mcharacters[24m or [4mscreen[24m [4mpositions[24m.  The array must contain a terminating null wide character, un‐
+              less a precision is given and it is so small that the number of bytes written exceeds it before the
+              end of the array is reached.
+
+       [1mC      [22m(Not in C99 or C11, but in SUSv2, SUSv3, and SUSv4.)  Synonym for [1mlc[22m.  Don't use.
+
+       [1mS      [22m(Not in C99 or C11, but in SUSv2, SUSv3, and SUSv4.)  Synonym for [1mls[22m.  Don't use.
+
+       [1mp      [22mThe [4mvoid[24m [4m*[24m pointer argument is printed in hexadecimal (as if by [1m%#x [22mor [1m%#lx[22m).
+
+       [1mn      [22mThe number of characters written so far is stored into the integer pointed to by the  corresponding
+              argument.  That argument shall be an [4mint[24m [4m*[24m, or variant whose size matches the (optionally) supplied
+              integer length modifier.  No argument is converted.  (This specifier is not supported by the bionic
+              C  library.)  The behavior is undefined if the conversion specification includes any flags, a field
+              width, or a precision.
+
+       [1mm      [22m(glibc extension; supported by uClibc and musl.)  Print output  of  [4mstrerror(errno)[24m  (or  [4mstrerror‐[0m
+              [4mname_np(errno)[24m in the alternate form).  No argument is required.
+
+       [1m%      [22mA '%' is written.  No argument is converted.  The complete conversion specification is '%%'.
+
+[1mRETURN VALUE[0m
+       Upon  successful  return, these functions return the number of bytes printed (excluding the null byte used
+       to end output to strings).
+
+       The functions [1msnprintf[22m() and [1mvsnprintf[22m() do not write more than [4msize[24m bytes (including the terminating null
+       byte ('\0')).  If the output was truncated due to this limit, then the return value is the number of char‐
+       acters (excluding the terminating null byte) which would have been written to the final string  if  enough
+       space had been available.  Thus, a return value of [4msize[24m or more means that the output was truncated.  (See
+       also below under CAVEATS.)
+
+       If an output error is encountered, a negative value is returned.
+
+[1mATTRIBUTES[0m
+       For an explanation of the terms used in this section, see [1mattributes[22m(7).
+       ┌───────────────────────────────────────────────────────────────────────┬───────────────┬────────────────┐
+       │ [1mInterface                                                             [22m│ [1mAttribute     [22m│ [1mValue          [22m│
+       ├───────────────────────────────────────────────────────────────────────┼───────────────┼────────────────┤
+       │ [1mprintf[22m(), [1mfprintf[22m(), [1msprintf[22m(), [1msnprintf[22m(), [1mvprintf[22m(), [1mvfprintf[22m(),    │ Thread safety │ MT-Safe locale │
+       │ [1mvsprintf[22m(), [1mvsnprintf[22m()                                               │               │                │
+       └───────────────────────────────────────────────────────────────────────┴───────────────┴────────────────┘
+
+[1mSTANDARDS[0m
+       [1mfprintf[22m()
+       [1mprintf[22m()
+       [1msprintf[22m()
+       [1mvprintf[22m()
+       [1mvfprintf[22m()
+       [1mvsprintf[22m()
+       [1msnprintf[22m()
+       [1mvsnprintf[22m()
+              C11, POSIX.1-2008.
+
+       [1mdprintf[22m()
+       [1mvdprintf[22m()
+              GNU, POSIX.1-2008.
+
+[1mHISTORY[0m
+       [1mfprintf[22m()
+       [1mprintf[22m()
+       [1msprintf[22m()
+       [1mvprintf[22m()
+       [1mvfprintf[22m()
+       [1mvsprintf[22m()
+              C89, POSIX.1-2001.
+
+       [1msnprintf[22m()
+       [1mvsnprintf[22m()
+              SUSv2, C99, POSIX.1-2001.
+
+              Concerning  the return value of [1msnprintf[22m(), SUSv2 and C99 contradict each other: when [1msnprintf[22m() is
+              called with [4msize[24m=0 then SUSv2 stipulates an unspecified return value less than 1, while C99  allows
+              [4mstr[24m  to  be  NULL  in this case, and gives the return value (as always) as the number of characters
+              that would have been written in case the output string has been  large  enough.   POSIX.1-2001  and
+              later align their specification of [1msnprintf[22m() with C99.
+
+       [1mdprintf[22m()
+       [1mvdprintf[22m()
+              GNU, POSIX.1-2008.
+
+       glibc 2.1 adds length modifiers [1mhh[22m, [1mj[22m, [1mt[22m, and [1mz [22mand conversion characters [1ma [22mand [1mA[22m.
+
+       glibc 2.2 adds the conversion character [1mF [22mwith C99 semantics, and the flag character [1mI[22m.
+
+       glibc 2.35 gives a meaning to the alternate form ([1m#[22m) of the [1mm [22mconversion specifier, that is [4m%#m[24m.
+
+[1mCAVEATS[0m
+       Some programs imprudently rely on code such as the following
+
+           sprintf(buf, "%s some further text", buf);
+
+       to  append  text  to [4mbuf[24m.  However, the standards explicitly note that the results are undefined if source
+       and destination buffers overlap when calling [1msprintf[22m(), [1msnprintf[22m(), [1mvsprintf[22m(), and [1mvsnprintf[22m().   Depend‐
+       ing  on  the  version  of [1mgcc[22m(1) used, and the compiler options employed, calls such as the above will [1mnot[0m
+       produce the expected results.
+
+       The glibc implementation of the functions [1msnprintf[22m() and [1mvsnprintf[22m() conforms to the  C99  standard,  that
+       is,  behaves as described above, since glibc 2.1.  Until glibc 2.0.6, they would return -1 when the output
+       was truncated.
+
+[1mBUGS[0m
+       Because [1msprintf[22m() and [1mvsprintf[22m() assume an arbitrarily long string, callers must be careful not  to  over‐
+       flow  the  actual space; this is often impossible to assure.  Note that the length of the strings produced
+       is locale-dependent and difficult to predict.  Use [1msnprintf[22m() and [1mvsnprintf[22m() instead (or [1masprintf[22m(3)  and
+       [1mvasprintf[22m(3)).
+
+       Code  such  as [1mprintf([4m[22mfoo[24m[1m); [22moften indicates a bug, since [4mfoo[24m may contain a % character.  If [4mfoo[24m comes from
+       untrusted user input, it may contain [1m%n[22m, causing the [1mprintf[22m() call to write to memory and creating a secu‐
+       rity hole.
+
+[1mEXAMPLES[0m
+       To print [4mPi[24m to five decimal places:
+
+           #include <math.h>
+           #include <stdio.h>
+           fprintf(stdout, "pi = %.5f\n", 4 * atan(1.0));
+
+       To print a date and time in the form "Sunday, July 3, 10:02", where [4mweekday[24m  and  [4mmonth[24m  are  pointers  to
+       strings:
+
+           #include <stdio.h>
+           fprintf(stdout, "%s, %s %d, %.2d:%.2d\n",
+                   weekday, month, day, hour, min);
+
+       Many  countries  use  the day-month-year order.  Hence, an internationalized version must be able to print
+       the arguments in an order specified by the format:
+
+           #include <stdio.h>
+           fprintf(stdout, format,
+                   weekday, month, day, hour, min);
+
+       where [4mformat[24m depends on locale, and may permute the arguments.  With the value:
+
+           "%1$s, %3$d. %2$s, %4$d:%5$.2d\n"
+
+       one might obtain "Sonntag, 3. Juli, 10:02".
+
+       To allocate a sufficiently large string and print into it (code correct for both glibc 2.0 and glibc 2.1):
+
+       #include <stdio.h>
+       #include <stdlib.h>
+       #include <stdarg.h>
+
+       char *
+       make_message(const char *fmt, ...)
+       {
+           int n = 0;
+           size_t size = 0;
+           char *p = NULL;
+           va_list ap;
+
+           /* Determine required size. */
+
+           va_start(ap, fmt);
+           n = vsnprintf(p, size, fmt, ap);
+           va_end(ap);
+
+           if (n < 0)
+               return NULL;
+
+           size = (size_t) n + 1;      /* One extra byte for '\0' */
+           p = malloc(size);
+           if (p == NULL)
+               return NULL;
+
+           va_start(ap, fmt);
+           n = vsnprintf(p, size, fmt, ap);
+           va_end(ap);
+
+           if (n < 0) {
+               free(p);
+               return NULL;
+           }
+
+           return p;
+       }
+
+       If truncation occurs in glibc versions prior to glibc 2.0.6, this is treated as an error instead of  being
+       handled gracefully.
+
+[1mSEE ALSO[0m
+       [1mprintf[22m(1), [1masprintf[22m(3), [1mputs[22m(3), [1mscanf[22m(3), [1msetlocale[22m(3), [1mstrfromd[22m(3), [1mwcrtomb[22m(3), [1mwprintf[22m(3), [1mlocale[22m(5)
+
+Linux man-pages 6.9.1                               2024-06-15                                          [4mprintf[24m(3)
