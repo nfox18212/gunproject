@@ -30,26 +30,11 @@ void isr_exitBP(void){
 
 }
                  
-// ISR(INT1_vect){
- 
-//   digitalWrite(RED_LED, HIGH);
-
-//   Serial.println("INSIDE INT1_VECT ISR");
-//   delayMicroseconds(10000);
-
-//   digitalWrite(RED_LED, LOW);
-
-// }
 
 void setup()
 {
   Serial.begin(9600);
   pinMode(5, INPUT_PULLUP);
-
-  while(digitalRead(5) != LOW){
-    Serial.println("STALL");
-  } 
-  Serial.println("LEAVING STALL");
 
   delay(1000);
 
@@ -76,7 +61,7 @@ void setup()
   
   Serial.println("STARTING PROGRAM!!!");
 
-  breakpoint2();
+  // breakpoint2();
 }
 
 void loop()
@@ -93,7 +78,7 @@ void loop()
     Serial.print(fstr);
   }
 
-  bp();
+  // bp();
 
   // delay(100);
 
@@ -149,7 +134,7 @@ int updateState(){
       state += 0; // i know this does nothing, its there just for clarity
     }    
     // shitty breakpoint
-    breakpoint();
+    // breakpoint();
   }
 
   return state;
