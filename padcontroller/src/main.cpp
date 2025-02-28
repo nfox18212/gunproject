@@ -30,17 +30,11 @@ void isr_exitBP(void){
 
 }
                  
-// }
 
 void setup()
 {
   Serial.begin(9600);
   pinMode(5, INPUT_PULLUP);
-
-  while(digitalRead(5) != LOW){
-    Serial.println("STALL");
-  } 
-  Serial.println("LEAVING STALL");
 
   delay(1000);
 
