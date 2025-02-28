@@ -30,15 +30,6 @@ void isr_exitBP(void){
 
 }
                  
-// ISR(INT1_vect){
- 
-//   digitalWrite(RED_LED, HIGH);
-
-//   Serial.println("INSIDE INT1_VECT ISR");
-//   delayMicroseconds(10000);
-
-//   digitalWrite(RED_LED, LOW);
-
 // }
 
 void setup()
@@ -56,7 +47,7 @@ void setup()
   pinMode(3, INPUT_PULLUP);
   pinMode(6, INPUT_PULLUP);
 
-  pinMode(TX_PIN, INPUT);
+  pinMode(TX_PIN, INPUT_PULLUP);
 
   pinMode(YELLOW_LED, OUTPUT);
   pinMode(GREEN_LED, OUTPUT);
@@ -76,49 +67,45 @@ void setup()
   
   Serial.println("STARTING PROGRAM!!!");
 
-  breakpoint2();
 }
 
 void loop()
 {
   // put your main code here, to run repeatedly:
-  Serial.println("AWOOGA");
-  bp();
   int states = updateState();
   char fstr[STRSIZE];
   int pinVal = analogRead(A0);
    
-  int f = snprintf(fstr, STRSIZE, "State is: %i, value of A0 is: %i\n", states, pinVal);
+  int f = snprintf(fstr, STRSIZE, "State is: %#.4x, value of A0 is: %i\n", states, pinVal);
   if( f >= 0 && f < STRSIZE){
     Serial.print(fstr);
   }
 
-  bp();
-
-  // delay(100);
+  delay(100);
 
   char sendKey = '\0'; // default to null, this will be the key the arduino sends
   // char modifierKeys[] = "none"; // will be important for sprinting, not needed r  /* determine what key to send
 
   switch (states){
-    case 0b10100000:
-    case 0b01010000:
-    case 0b10010000:
-    case 0b01100000:
+    case 0x00A0:
+    case 0x0050:
+    case 0x0090:
+    case 0x0060:
       // look for walk input
       sendKey = 'w';                            
       break;
-    case 0b1:
+    case 0x0001:
       sendKey = 'a'; // test input to send
       break;
     default:
       sendKey = '\0'; // if input combo is wrong, send a null for now
   }
 
-  // TX_PIN is pullup pin on button
+  // switch
   if(digitalRead(7) == HIGH){
 
     digitalWrite(13, HIGH);
+    Serial.println("WRITING OUTPUT");
     Keyboard.begin(KeyboardLayout_en_US);
     Keyboard.press(sendKey);
     Keyboard.end();
@@ -139,8 +126,9 @@ int updateState(){
     int pin = apinArray[pindex];
     int aVal = analogRead(pin); // grab the value of the current pin
     // bitshift to store pin states in one integer
-    state = state >> 1; 
-    // twoChar twoCharPin = readableAnalogPin(pin);
+    state = state << 1; // LEFT SHIFT LEFT SHIFT LEFT SHIFT
+    twoChar twoCharPin = readableAnalogPin(pin);
+    char str[100];
 
     // 600 is the default threshold value, configured in conf.hpp
     if (aVal > THRESHOLD){
@@ -148,8 +136,12 @@ int updateState(){
     } else {
       state += 0; // i know this does nothing, its there just for clarity
     }    
-    // shitty breakpoint
-    breakpoint();
+    
+    snprintf(str, 100,"%c%c reads %i.  Therefore, state is: %.4x\n", twoCharPin.c1, twoCharPin.c2, aVal, state);
+    Serial.print(str);
+    while(digitalRead(3) != LOW){
+      delay(500);
+    }
   }
 
   return state;
