@@ -52,7 +52,7 @@ void setup()
   digitalWrite(15, LOW); 
   digitalWrite(14, LOW);
   digitalWrite(16, LOW);
-  digitalWrite(10, LOW); // to see if program is active
+  digitalWrite(10, HIGH); // to see if program is active
 
 
   // set up breakpoint ISR
@@ -134,7 +134,7 @@ int updateState(){
     snprintf(str, 100,"%c%c reads %i.  Therefore, state is: %.4x\n", twoCharPin.c1, twoCharPin.c2, aVal, state);
     Serial.print(str);
     while(digitalRead(3) != LOW){
-      delay(500);
+      delay(50);
     }
   }
 
