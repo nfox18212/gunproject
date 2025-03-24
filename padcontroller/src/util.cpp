@@ -60,34 +60,34 @@ twoChar readableAnalogPin(int index){
 /* 
     Implementing my own breakpoint sucks and I hate it
 */
-void breakpoint(){
+// void breakpoint(){
 
-    // turn BLUE_LED on to show we've hit the breakpoint
-    digitalWrite(BLUE_LED, HIGH);
-    while(continueBreakpoint){
-        // try doing this stalling loop with an interrupt to exit instead
-        // if(digitalRead(6) == LOW){
-        //     break;
-        // }
-    }
+//     // turn BLUE_LED on to show we've hit the breakpoint
+//     digitalWrite(BLUE_LED, HIGH);
+//     while(continueBreakpoint){
+//         // try doing this stalling loop with an interrupt to exit instead
+//         // if(digitalRead(6) == LOW){
+//         //     break;
+//         // }
+//     }
 
-    // delay(100); // delay
-    // turn that led off to show we're leaving the breakpoint
-    digitalWrite(BLUE_LED, LOW);
+//     // delay(100); // delay
+//     // turn that led off to show we're leaving the breakpoint
+//     digitalWrite(BLUE_LED, LOW);
 
-    continueBreakpoint = true;
+//     continueBreakpoint = true;
     
-    return;
-}
+//     return;
+// }
 
-void breakpoint2(){
+// void breakpoint2(){
     
-    digitalWrite(RED_LED, HIGH);
+//     digitalWrite(RED_LED, HIGH);
     
-    while(digitalRead(5) == LOW){
-        Serial.println("STALL");
-    }
+//     while(digitalRead(5) == LOW){
+//         Serial.println("STALL");
+//     }
 
-    digitalWrite(RED_LED, LOW);
+//     digitalWrite(RED_LED, LOW);
 
-}
+// }
