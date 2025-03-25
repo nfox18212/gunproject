@@ -10,7 +10,7 @@
 #define MIN_PIN 2
 #define MAX_PIN MIN_PIN+3
 
-#define THRESHOLD 550
+#define THRESHOLD 600
 #define STRSIZE 100
 
 

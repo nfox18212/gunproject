@@ -3,7 +3,6 @@
 #include <Arduino.h>
 #include <Keyboard.h>
 
-using namespace std;
 int updateState();
 
 struct pinstruct{
