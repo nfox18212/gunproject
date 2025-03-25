@@ -51,8 +51,8 @@ void setup()
 
     delay(1000);
 
+    // TODO: Finish this switch statement and replace the magic numbers with variables
     // blocking while loop
-    // TODO: Take out this blocking while loop
     while (digitalRead(0) != LOW)
     {
         Serial.println("BLOCKING");
@@ -79,10 +79,14 @@ void loop()
 
     delay(100); // adjust for sensitivity when polling
 
+    char sendKey = '\0'; // default to null, this will be the key the arduino sends
+    // char modifierKeys[] = "none"; // will be important for sprinting, not needed right now
+    /* determine what key to send */
 
+    switch (states)
     {
     // these are currently magic numbers, make documentation to describe
-    // TODO: Finish this switch statement and replace the magic numbers with variables
+    // TODO: Finish this switch statement and replace the magic numbers with 
     case 0x00A0: // 0b 0000 0000 0101 0000 
     case 0x0050: // 0b 0000 0000 0011 0000
     case 0x0090: // 0b 0000 0000 1001 0000
@@ -97,7 +101,6 @@ void loop()
         sendKey = '\0'; // if input combo is wrong, send a null for now
     }
 
-    // TODO: Take out this conditional and make it write to the keyboard by default
     // switch
     if (digitalRead(7) == HIGH)
     {
@@ -142,7 +145,7 @@ int updateState()
         }
 
         snprintf(str, 100, "%c%c reads %.4i.  Therefore, state is: %.4x", twoCharPin.c1, twoCharPin.c2, aVal, state);
-        Serial.println(str); // needs to be a println otherwise output gets screwed up
+        Serial.println(str);
     }
 
     return state;
