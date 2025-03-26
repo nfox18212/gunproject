@@ -13,20 +13,6 @@
 // A6 = D4, A7 = D6, A8 = D8, A9 = D9
 int apinArray[10] = {A0, A1, A2, A3, A4, A5, A6, A7, A8, A9};
 
-// volatile bool continueBreakpoint = true;
-
-// void isr_exitBP(void){
-//   continueBreakpoint = false;
-
-//   digitalWrite(GREEN_LED, HIGH); // signify that we're in an ISR
-//   // stalling for loop
-
-//   Serial.println("INSIDE isr_EXITBP");
-//   delayMicroseconds(10000); // wait for a while
-
-//   digitalWrite(GREEN_LED, LOW);
-
-// }
 
 void setup()
 {
@@ -87,10 +73,10 @@ void loop()
     {
     // these are currently magic numbers, make documentation to describe
     // TODO: Finish this switch statement and replace the magic numbers with 
-    case 0x00A0: // 0b 0000 0000 0101 0000 
-    case 0x0050: // 0b 0000 0000 0011 0000
-    case 0x0090: // 0b 0000 0000 1001 0000
-    case 0x0060: // 0b 0000 0000 0110 0000
+    case 0x0A0: // 0b 0000 0101 0000 
+    case 0x050: // 0b 0000 0011 0000
+    case 0x090: // 0b 0000 1001 0000
+    case 0x060: // 0b 0000 0110 0000
         // look for walk input
         sendKey = 'w';
         break;
