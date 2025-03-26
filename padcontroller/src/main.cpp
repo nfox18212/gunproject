@@ -12,6 +12,8 @@
 
 // A6 = D4, A7 = D6, A8 = D8, A9 = D9
 int apinArray[10] = {A0, A1, A2, A3, A4, A5, A6, A7, A8, A9};
+bool toggleSprint = false;
+bool toggleCrouch = false;
 
 
 void setup()
@@ -58,43 +60,108 @@ void loop()
     int pinVal = analogRead(A0);
 
     int f = snprintf(fstr, STRSIZE, "State is: %#4x, value of A0 is: %4i", states, pinVal);
-    if (f >= 0 && f < STRSIZE)
+    if (f >= 0 && f < STRSIZE)bool toggleSprint = false;
     {
         Serial.println(fstr);
     }
 
+    // exclusively to over-write state when debugging keyboard input
+    if(analogRead(A10) > THRESHOLD){
+      states = 0xFFF; // should be impossible under normal circumstances
+    }
+
     delay(100); // adjust for sensitivity when polling
 
-    char sendKey = '\0'; // default to null, this will be the key the arduino sends
-    // char modifierKeys[] = "none"; // will be important for sprinting, not needed right now
-    /* determine what key to send */
+    char sendKey  = '\0'; // default to null, this will be the key the arduino sends
+    char strafeKey = '\0'; // default to null, used for strafing
+    bool strafing = false;
 
     switch (states)
     {
-    // these are currently magic numbers, make documentation to describe
-    // TODO: Finish this switch statement and replace the magic numbers with 
-    case 0x0A0: // 0b 0000 0101 0000 
-    case 0x050: // 0b 0000 0011 0000
-    case 0x090: // 0b 0000 1001 0000
-    case 0x060: // 0b 0000 0110 0000
-        // look for walk input
-        sendKey = 'w';
-        break;
-    case 0x0001:
-        sendKey = 'a'; // test input to send
+    // docs.md explains shit
+  
+    case WALK1:
+    case WALK2:
+    case WALK3:
+    case WALK4:
+      // look for walk input
+      sendKey = 'w';
+      break;
+    case SPRINT:
+      // combination of shift and w
+      toggleSprint = !toggleSprint; // invert toggle crouch
+      break;
+    case TOG_CROUCH:
+      toggleCrouch = !toggleCrouch;
+      break;
+    case RIGHT1:
+    case RIGHT2:
+      sendKey = 'd';
+      break;
+    case LEFT1:
+    case LEFT2:
+      sendKey = 'a';
+      break;
+    case STRAFE_L1:
+    case STRAFE_L2:
+      sendKey = 'w';
+      strafeKey = 'a';
+      strafing = true;
+      break;
+    case STRAFE_R1:
+    case STRAFE_R2:
+      sendKey = 'w';
+      strafeKey = 'd';
+      strafing = true;
+      break;
+    case BACKWARDS1:
+    case BACKWARDS2:
+    case BACKWARDS3:
+    case BACKWARDS4:
+    case BACKWARDS5:
+      sendKey = 's';
+      break;
+    case STAYSTILL:
+      sendKey = '\0';
+      break;
+    case JUMP:
+      sendKey = ' ';
+      break;
+    case 0xFFF: // impossible under normal circumstances
+        sendKey = '?'; // test input to send
         break;
     default:
         sendKey = '\0'; // if input combo is wrong, send a null for now
     }
 
-    // switch
+    // for debugging, allows me to turn sending keyboard input off
     if (digitalRead(7) == HIGH)
     {
-
-        digitalWrite(13, HIGH);
+        digitalWrite(13, HIGH); // show that keyboard output will be written
         Serial.println("WRITING OUTPUT");
         Keyboard.begin(KeyboardLayout_en_US);
-        Keyboard.write(sendKey);
+
+        if (toggleCrouch){
+          Keyboard.press(KEY_LEFT_CTRL);
+        } else {
+          Keyboard.release(KEY_LEFT_CTRL);
+        }
+
+        if (toggleSprint){
+          Keyboard.press(KEY_LEFT_SHIFT);
+        } else {
+          Keyboard.release(KEY_LEFT_SHIFT);
+        }
+
+        if (strafing){
+          Keyboard.press(strafeKey);
+        }
+
+        Keyboard.press(sendKey);
+        delay(50);
+        Keyboard.release(sendKey);
+        Keyboard.release(strafeKey);
+        
         Keyboard.end();
     }
     else
