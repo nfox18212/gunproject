@@ -37,18 +37,16 @@ void setup()
     // set up breakpoint ISR
     // attachInterrupt(digitalPinToInterrupt(0), isr_exitBP, RISING); // wasn't working, don't know why, not dealing with it
 
-    delay(1000);
-
-    // TODO: Finish this switch statement and replace the magic numbers with variables
-    // blocking while loop
-    while (digitalRead(0) != LOW)
-    {
-        Serial.println("BLOCKING");
-    }
+    // delay(1000);
+    // // blocking while loop
+    // while (digitalRead(0) != LOW)
+    // {
+    //     Serial.println("BLOCKING");
+    // }
     // 0x0C is form feed/new page, clear the serial terminal from all the BLOCKING messages
     Serial.write(0xC);
     Serial.println("STARTING PROGRAM!!!");
-    delay(1000); //-
+    delay(1000); 
 }
 
 void loop()
@@ -131,7 +129,7 @@ void loop()
         sendKey = '?'; // test input to send
         break;
     default:
-        sendKey = '\0'; // if input combo is wrong, send a null for now
+        sendKey = '\0'; // if input combo is wrong or user is standing in the middle, send a null for now
     }
 
     // for debugging, allows me to turn sending keyboard input off
