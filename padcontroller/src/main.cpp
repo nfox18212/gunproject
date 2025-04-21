@@ -3,11 +3,6 @@
 #include <conf.hpp>
 #include <util.hpp>
 
-// put function declarations here:
-
-// byte pinStates = 0b00000000; // why do i need to do this as a byte?
-// first two bits are the two forward parts of the pad
-
 // static bool toggleSprint = false;
 
 // A6 = D4, A7 = D6, A8 = D8, A9 = D9
@@ -15,34 +10,24 @@ int apinArray[10] = {A0, A1, A2, A3, A4, A5, A6, A7, A8, A9};
 bool toggleSprint = false;
 bool toggleCrouch = false;
 
+int timer = 0; // used to display time in since program started
+
+// heaviest cell
+
 
 void setup()
 {
     Serial.begin(9600);
-    pinMode(3, INPUT_PULLUP);
-    pinMode(5, INPUT_PULLUP);
-    pinMode(TX_PIN, INPUT_PULLUP);
+    pinMode(TX_PIN, INPUT); // if high then it means keyboard transmission is enabled
+    pinMode(LED_ZERO, OUTPUT); 
+    pinMode(LED_ONE, OUTPUT);
+    pinMode(LED_TWO, OUTPUT);
+    pinMode(LED_THREE, OUTPUT);
+    pinMode(LED_FOUR, OUTPUT);
+    pinMode(A10, INPUT); // debugging pin
+    pinMode(HALT, INPUT_PULLUP);
 
-    pinMode(YELLOW_LED, OUTPUT);
-    pinMode(GREEN_LED, OUTPUT);
-    pinMode(BLUE_LED, OUTPUT);
-    pinMode(RED_LED, OUTPUT);
-
-    // define set states for LEDs
-    digitalWrite(YELLOW_LED, LOW);
-    digitalWrite(GREEN_LED, LOW);
-    digitalWrite(BLUE_LED, LOW);
-    digitalWrite(RED_LED, HIGH); // to see if program is active
-
-    // set up breakpoint ISR
-    // attachInterrupt(digitalPinToInterrupt(0), isr_exitBP, RISING); // wasn't working, don't know why, not dealing with it
-
-    // delay(1000);
-    // // blocking while loop
-    // while (digitalRead(0) != LOW)
-    // {
-    //     Serial.println("BLOCKING");
-    // }
+    
     // 0x0C is form feed/new page, clear the serial terminal from all the BLOCKING messages
     Serial.write(0xC);
     Serial.println("STARTING PROGRAM!!!");
@@ -51,24 +36,28 @@ void setup()
 
 void loop()
 {
+    timer += 1;
     Serial.println("LOOPING");
     // put your main code here, to run repeatedly:
+    
     int states = updateState();
     char fstr[STRSIZE];
-    int pinVal = analogRead(A0);
+    
 
-    int f = snprintf(fstr, STRSIZE, "State is: %#4x, value of A0 is: %4i", states, pinVal);
-    if (f >= 0 && f < STRSIZE)bool toggleSprint = false;
+    int f = snprintf(fstr, STRSIZE, "[MAIN] State is: %#4x, time is: %4i" , states, timer);
+    if (f >= 0 && f < STRSIZE)
     {
-        Serial.println(fstr);
+      Serial.println(fstr);
     }
+
+    
 
     // exclusively to over-write state when debugging keyboard input
     if(analogRead(A10) > THRESHOLD){
       states = 0xFFF; // should be impossible under normal circumstances
     }
 
-    delay(100); // adjust for sensitivity when polling
+    delay(1000); // adjust for sensitivity when polling
 
     char sendKey  = '\0'; // default to null, this will be the key the arduino sends
     char strafeKey = '\0'; // default to null, used for strafing
@@ -76,7 +65,7 @@ void loop()
 
     switch (states)
     {
-    // docs.md explains shit
+    // docs.md explains this switch statement
   
     case WALK1:
     case WALK2:
@@ -133,9 +122,9 @@ void loop()
     }
 
     // for debugging, allows me to turn sending keyboard input off
-    if (digitalRead(7) == HIGH)
+    if (digitalRead(TX_PIN) == HIGH)
     {
-        digitalWrite(13, HIGH); // show that keyboard output will be written
+        digitalWrite(TX_LED, HIGH); // show that keyboard output will be written
         Serial.println("WRITING OUTPUT");
         Keyboard.begin(KeyboardLayout_en_US);
 
@@ -164,10 +153,11 @@ void loop()
     }
     else
     {
-        digitalWrite(13, LOW);
+        digitalWrite(TX_LED, LOW);
     }
 
     // Serial.write(0x0C); // new page
+    while(digitalRead(HALT) == LOW); // blocking loop to halt
 }
 
 int updateState()
@@ -175,15 +165,23 @@ int updateState()
 
     // using A0 - A9
     int state = 0;
+    int heaviest_cell[2] = {NA, 0}; // i can brute force this array into a really shitty tuple
+    // represents the cell ID and the analogue value of the current heaviest pin
     // 10 pins read, max of 9
     for (int pindex = 9; pindex > -1; pindex--)
     {
         int pin = apinArray[pindex];
-        int aVal = analogRead(pin); // grab the value of the current pin
+        int aVal = analogRead(pin); // weight upon the current cell
         // bitshift to store pin states in one integer
         state = state << 1; // LEFT SHIFT LEFT SHIFT LEFT SHIFT
         twoChar twoCharPin = readableAnalogPin(pin);
         char str[STRSIZE];
+
+        if(heaviest_cell[1] < aVal){
+          // if there is a heavier weight upon the previous recorded weight, update the new cell
+          heaviest_cell[0] = pindex; // current pin we're looking at
+          heaviest_cell[1] = aVal; // new weight 
+        }
 
         // 600 is the default threshold value, configured in conf.hpp
         if (aVal > THRESHOLD)
@@ -195,8 +193,23 @@ int updateState()
             state += 0; // i know this does nothing, its there just for clarity
         }
 
-        snprintf(str, 100, "%c%c reads %.4i.  Therefore, state is: %.4x", twoCharPin.c1, twoCharPin.c2, aVal, state);
+        snprintf(str, 100, "%c%c reads %.4i.  Therefore, state is: %.#4x", twoCharPin.c1, twoCharPin.c2, aVal, state);
         Serial.println(str);
+    }
+
+    // if the heaviest cell is actually something interesting, display it on the LEDs
+    if (heaviest_cell[0] != NA){
+
+      // LOW is defined as 0, HIGH defined as 1.  We can avoid uncessesary if statements by using 
+      // a bitwise AND for what to write in digitalWrite()
+      digitalWrite(LED_ZERO, heaviest_cell[0] & 1); // 2^0
+      digitalWrite(LED_ONE, heaviest_cell[0] & 2); // 2^1
+      digitalWrite(LED_TWO, heaviest_cell[0] & 4); // 2^2
+      digitalWrite(LED_THREE, heaviest_cell[0] & 8); // 2^3
+      digitalWrite(LED_FOUR, heaviest_cell[0] & 16); // 2$4
+
+
+      // this will write out the number of the heaviest cell in binary
     }
 
     return state;
