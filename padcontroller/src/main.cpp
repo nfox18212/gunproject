@@ -2,6 +2,7 @@
 #include <main.hpp>
 #include <conf.hpp>
 #include <util.hpp>
+// #include <Joystick.h>
 
 // static bool toggleSprint = false;
 
@@ -30,14 +31,15 @@ void setup()
     
     // 0x0C is form feed/new page, clear the serial terminal from all the BLOCKING messages
     Serial.write(0xC);
-    Serial.println("STARTING PROGRAM!!!");
+    // Serial.println("STARTING PROGRAM!!!");
     delay(1000); 
 }
 
 void loop()
 {
+    while(digitalRead(HALT) == LOW); // blocking loop to halt
     timer += 1;
-    Serial.println("LOOPING");
+    // Serial.println("LOOPING");
     // put your main code here, to run repeatedly:
     
     int states = updateState();
@@ -57,7 +59,7 @@ void loop()
       states = 0xFFF; // should be impossible under normal circumstances
     }
 
-    delay(1000); // adjust for sensitivity when polling
+    delay(100); // adjust for sensitivity when polling
 
     char sendKey  = '\0'; // default to null, this will be the key the arduino sends
     char strafeKey = '\0'; // default to null, used for strafing
@@ -156,8 +158,7 @@ void loop()
         digitalWrite(TX_LED, LOW);
     }
 
-    // Serial.write(0x0C); // new page
-    while(digitalRead(HALT) == LOW); // blocking loop to halt
+    // Serial.write(0x0C); // new page   
 }
 
 int updateState()
@@ -193,7 +194,7 @@ int updateState()
             state += 0; // i know this does nothing, its there just for clarity
         }
 
-        snprintf(str, 100, "%c%c reads %.4i.  Therefore, state is: %.#4x", twoCharPin.c1, twoCharPin.c2, aVal, state);
+        snprintf(str, 100, "%c%c reads %.4i.  Therefore, state is: %#.4x", twoCharPin.c1, twoCharPin.c2, aVal, state);
         Serial.println(str);
     }
 
