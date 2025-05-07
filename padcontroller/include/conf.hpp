@@ -1,7 +1,6 @@
 #pragma once
 #include <stdbool.h>
 // this file should be use to define configuration definitions
-#define TX_PIN 0 // used as the interrupt pin
 
 #define DBG true // debug macro
 
@@ -28,7 +27,7 @@
 #define JUMP        0x000
 
 
-#define THRESHOLD 600
+#define THRESHOLD 300
 #define STRSIZE 100
 
 
@@ -38,10 +37,10 @@
 #define LED_THREE 12
 #define LED_FOUR 13
 
-#define TX_PIN 0 // pin to enable transmission of data
+#define TX_PIN 3 // pin to enable transmission of data
 #define TX_LED 1 // LED to display transmission state
 
 #define bp breakpoint
 #define NA 300
 
-#define HALT 3
+#define HALT_PIN 0

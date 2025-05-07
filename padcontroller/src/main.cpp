@@ -7,9 +7,10 @@
 // static bool toggleSprint = false;
 
 // A6 = D4, A7 = D6, A8 = D8, A9 = D9
-int apinArray[10] = {A0, A1, A2, A3, A4, A5, A6, A7, A8, A9};
+int apinArray[] = {A0, A1, A2, A3, A4, A5, A6, A7, A8, A10}; // change because the wire broke in A9
 bool toggleSprint = false;
 bool toggleCrouch = false;
+
 
 int timer = 0; // used to display time in since program started
 
@@ -26,7 +27,7 @@ void setup()
     pinMode(LED_THREE, OUTPUT);
     pinMode(LED_FOUR, OUTPUT);
     pinMode(A10, INPUT); // debugging pin
-    pinMode(HALT, INPUT_PULLUP);
+    pinMode(HALT_PIN, INPUT_PULLUP);
 
     
     // 0x0C is form feed/new page, clear the serial terminal from all the BLOCKING messages
@@ -37,7 +38,8 @@ void setup()
 
 void loop()
 {
-    while(digitalRead(HALT) == LOW); // blocking loop to halt
+    while(digitalRead(HALT_PIN) == HIGH);
+
     timer += 1;
     // Serial.println("LOOPING");
     // put your main code here, to run repeatedly:
@@ -52,18 +54,18 @@ void loop()
       Serial.println(fstr);
     }
 
-    
+    char sendKey  = '\0'; // default to null, this will be the key the arduino sends
+    char strafeKey = '\0'; // default to null, used for strafing
+    bool strafing = false;    
 
     // exclusively to over-write state when debugging keyboard input
-    if(analogRead(A10) > THRESHOLD){
-      states = 0xFFF; // should be impossible under normal circumstances
+    if(digitalRead(2) == HIGH){
+      sendKey = '?'; // should be impossible under normal circumstances
     }
 
     delay(100); // adjust for sensitivity when polling
 
-    char sendKey  = '\0'; // default to null, this will be the key the arduino sends
-    char strafeKey = '\0'; // default to null, used for strafing
-    bool strafing = false;
+
 
     switch (states)
     {
@@ -116,9 +118,6 @@ void loop()
     case JUMP:
       sendKey = ' ';
       break;
-    case 0xFFF: // impossible under normal circumstances
-        sendKey = '?'; // test input to send
-        break;
     default:
         sendKey = '\0'; // if input combo is wrong or user is standing in the middle, send a null for now
     }
@@ -164,11 +163,11 @@ void loop()
 int updateState()
 {
 
-    // using A0 - A9
+    // using A0 - A8 and A10
     int state = 0;
     int heaviest_cell[2] = {NA, 0}; // i can brute force this array into a really shitty tuple
     // represents the cell ID and the analogue value of the current heaviest pin
-    // 10 pins read, max of 9
+    // 10 pins read, max of 9 - update to go to 10 to display A11 which should be D12
     for (int pindex = 9; pindex > -1; pindex--)
     {
         int pin = apinArray[pindex];
